@@ -53,7 +53,8 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ```
 
 #### 变量值
-- 结果测试欢太所需CK为 `source_type`,`TOKENSID`,`app_param`
+- 结果测试欢太所需CK为: 
+`source_type`、`TOKENSID`、`app_param`
 
 #### 变量格式
 ```text
