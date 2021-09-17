@@ -13,6 +13,7 @@ new Env('欢太积分大乱斗');
 import os
 import sys
 import time
+import json
 import random
 import logging
 
@@ -201,6 +202,16 @@ class PointsBattle:
                 self.runBattleTask()                        # 运行任务中心
             logger.info('*' * 40 + '\n')
 
+# 格式化设备信息Json
+# 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
+def transform(string):
+    dic2 = {}
+    dic1 = eval(string)
+    for i in dic1['app_param'][1:-1].split(','):
+        dic2[i.split(':')[0]] = i.split(':')[-1]
+    dic1['CK'] = dic1['CK'] + f";app_param={json.dumps(dic2,ensure_ascii=False)}"
+    return dic1
+
 # 读取青龙CK
 def getEnv(key):
     lists = []
@@ -210,7 +221,7 @@ def getEnv(key):
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
-            lists.append(eval(each))
+            lists.append(transform(each))
     return lists
 
 if __name__ == '__main__':
