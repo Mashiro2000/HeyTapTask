@@ -52,6 +52,9 @@ ql repo https://github.com/Mashiro2000/QL_HeyTap.git                        # �
 ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # 国内机(谢谢大佬的代理)
 ```
 
+#### 变量值
+- 结果测试欢太所需CK为 `source_type`,`TOKENSID`,`app_param`
+
 #### 变量格式
 ```text
     名称= HT_COOKIE
