@@ -13,6 +13,7 @@ new Env('欢太任务中心');
 import os
 import sys
 import time
+import json
 import random
 import logging
 
@@ -403,7 +404,6 @@ class HeyTap:
             'captcha':'',
             'isCheck':0,
             'source_type':501,
-            's_channel':'xiaomi',
             'sku':'',
             'spu':''
         }
@@ -466,8 +466,8 @@ class HeyTap:
         self.runViewTask()          # 浏览任务
         self.runShareTask()         # 分享任务
         # self.runViewPush()          # 浏览推送任务(已下架)
-        # self.runEarnPoint()         # 赚积分活动(青龙版本存在bug)
-        # self.doubledLottery()       # 天天积分翻倍，基本上抽不中
+        self.runEarnPoint()         # 赚积分活动
+        self.doubledLottery()       # 天天积分翻倍，基本上抽不中
 
     # 执行欢太商城实例对象
     def start(self):
@@ -482,6 +482,16 @@ class HeyTap:
                 self.runTaskCenter()                    # 运行任务中心
             logger.info('*' * 40 + '\n')
 
+# 格式化设备信息Json
+# 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
+def transform(string):
+    dic2 = {}
+    dic1 = eval(string)
+    for i in dic1['app_param'][1:-1].split(','):
+        dic2[i.split(':')[0]] = i.split(':')[-1]
+    dic1['CK'] = dic1['CK'] + f";app_param={json.dumps(dic2,ensure_ascii=False)}"
+    return dic1
+
 # 读取青龙CK
 def getEnv(key):
     lists = []
@@ -491,12 +501,12 @@ def getEnv(key):
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
-            lists.append(eval(each))
+            lists.append(transform(each))
     return lists
 
 if __name__ == '__main__':
     for each in getEnv('HT_COOKIE'):
-        if each['CK'] != "" and each['UA'] != "":
+        if all(each.values()):
             heyTap = HeyTap(each)
             for count in range(3):
                 try:
