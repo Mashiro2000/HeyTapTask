@@ -56,9 +56,10 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ```text
     名称= HT_COOKIE
     值=     {
-                'user': '',   # 用户名(自定义)
-                'CK': '',     # COOKIE
-                'UA': ''      # User-Agent
+            'user':'',
+            'CK':'source_type=xxx; TOKENSID=TOKEN_xxxx;',
+            'UA':'UA',
+            'app_param':'{"a":"a","b":"b","c":"c"}'
             }
     备注=   随便填
 ```
@@ -66,6 +67,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ##### 变量获取
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
+- 其中`app_param`包含在CK中，由于青龙面板把嵌套JSON转换为不可之间转变的字符串,需手动提取'app_param'   PS:可能是我太菜了
 
 ##### 格式样本
 [![4Kmqg0.md.png](https://z3.ax1x.com/2021/09/17/4Kmqg0.md.png)](https://imgtu.com/i/4Kmqg0)
