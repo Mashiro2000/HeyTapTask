@@ -64,7 +64,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
     备注 -> 随便填
 ```
 ##### 格式样本
-![Image text](<img width="376" alt="format" src="https://user-images.githubusercontent.com/40681822/133728142-5dd4c8ad-80e8-4e79-ac08-ff3d10044d8d.png">)
+![Image text](<img width="376" alt="format" src="https://ghproxy.com/https://user-images.githubusercontent.com/40681822/133728142-5dd4c8ad-80e8-4e79-ac08-ff3d10044d8d.png">)
 ##### 变量获取
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
