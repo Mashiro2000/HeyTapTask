@@ -49,7 +49,8 @@
 
 #### 拉库指令
 ```text
-ql repo https://github.com/Mashiro2000/QL_HeyTap.git
+ql repo https://github.com/Mashiro2000/QL_HeyTap.git                        # 国内机
+ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # 国外机(谢谢大佬的代理)
 ```
 
 #### 变量格式
