@@ -442,7 +442,6 @@ class HeyTap:
             'captcha':'',
             'isCheck':0,
             'source_type':501,
-            's_channel':'xiaomi',
             'sku':'',
             'spu':''
         }
@@ -466,8 +465,8 @@ class HeyTap:
         self.clockIn()              # 签到打卡
         self.runViewTask()          # 浏览任务
         self.runShareTask()         # 分享任务
-        # self.runViewPush()          # 浏览推送任务
-        self.runEarnPoint()         # 赚积分活动(已下架)
+        # self.runViewPush()          # 浏览推送任务(已下架)
+        # self.runEarnPoint()         # 赚积分活动(青龙版本存在bug)
         # self.doubledLottery()       # 天天积分翻倍，基本上抽不中
 
     # 执行欢太商城实例对象
