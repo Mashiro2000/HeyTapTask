@@ -33,7 +33,7 @@
 * [x] 天天领现金定时红包
 * [x] 早睡打卡
 * [x] 积分大作战
-* [] 发信功能
+* [ ] 发信功能
 
 ## 文件说明
 ```text
@@ -48,8 +48,8 @@
 
 #### 拉库指令
 ```text
-ql repo https://github.com/Mashiro2000/QL_HeyTap.git                        # 国内机
-ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # 国外机(谢谢大佬的代理)
+ql repo https://github.com/Mashiro2000/QL_HeyTap.git                        # 国外机
+ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # 国内机(谢谢大佬的代理)
 ```
 
 #### 变量格式
