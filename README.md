@@ -54,13 +54,13 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 
 #### 变量格式
 ```text
-    名称 -> HT_COOKIE
-    值   -> {
+    名称= HT_COOKIE
+    值=     {
                 'user': '',   # 用户名(自定义)
                 'CK': '',     # COOKIE
                 'UA': ''      # User-Agent
             }
-    备注 -> 随便填
+    备注=   随便填
 ```
 
 ##### 变量获取
