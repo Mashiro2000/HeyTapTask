@@ -67,7 +67,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ##### 变量获取
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
-- 其中`app_param`包含在CK中，由于青龙面板把嵌套JSON转换为不可之间转变的字符串,需手动提取'app_param'   PS:可能是我太菜了
+- 其中`app_param`包含在CK中，由于青龙面板把嵌套JSON转换为不可直接转变的字符串,需手动提取'app_param'   PS:可能是我太菜了
 
 ##### 格式样本
 ![](https://s3.bmp.ovh/imgs/2021/09/c2a9ca2e64a33280.png)
