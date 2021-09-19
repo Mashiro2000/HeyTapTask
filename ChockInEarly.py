@@ -94,7 +94,7 @@ class CheckInEarly:
     # 执行欢太商城实例对象
     def start(self):
         self.sess.headers.update({
-            "User-Agent":self.dic['UA']
+            "Cookie": f"source_type=501;{self.dic['CK']}"
         })
         self.sess.cookies.update({
             "Cookie":self.dic['CK']
