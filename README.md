@@ -74,4 +74,4 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 - 其中`app_param`包含在CK中，由于青龙面板把嵌套JSON转换为不可直接转变的字符串,需手动提取'app_param'   PS:可能是我太菜了
 
 ##### 格式样本
-![](https://s3.bmp.ovh/imgs/2021/09/28fd1982909e4e91.png)
+![](https://s3.bmp.ovh/imgs/2021/09/263438d724464191.png)
