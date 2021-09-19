@@ -61,7 +61,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ```text
     名称= HT_COOKIE
     值=     {
-            'user':'',
+            'user':'',  # 自定义备注(为了区分账号，包括未登录状态下)
             'CK':'source_type=xxx; TOKENSID=TOKEN_xxxx;',
             'UA':'UA',
             'app_param':'{"a":"a","b":"b","c":"c"}'
