@@ -467,7 +467,7 @@ class HeyTap:
         self.runShareTask()         # 分享任务
         # self.runViewPush()          # 浏览推送任务(已下架)
         self.runEarnPoint()         # 赚积分活动
-        self.doubledLottery()       # 天天积分翻倍，基本上抽不中
+        # self.doubledLottery()       # 天天积分翻倍，基本上抽不中
 
     # 执行欢太商城实例对象
     def start(self):
