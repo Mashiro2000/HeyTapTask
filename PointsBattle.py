@@ -195,7 +195,7 @@ class PointsBattle:
             "User-Agent":self.dic['UA']
         })
         self.sess.cookies.update({
-            "Cookie":self.dic['CK']
+            "Cookie": f"source_type=501;{self.dic['CK']}"
         })
         if self.login() == True:
             if self.getBattleList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
