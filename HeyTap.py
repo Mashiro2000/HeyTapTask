@@ -467,7 +467,7 @@ class HeyTap:
         self.runShareTask()         # 分享任务
         # self.runViewPush()          # 浏览推送任务(已下架)
         self.runEarnPoint()         # 赚积分活动
-        # self.doubledLottery()       # 天天积分翻倍，基本上抽不中
+        self.doubledLottery()       # 天天积分翻倍，基本上抽不中
 
     # 执行欢太商城实例对象
     def start(self):
@@ -475,7 +475,7 @@ class HeyTap:
             "User-Agent":self.dic['UA']
         })
         self.sess.cookies.update({
-            "Cookie":self.dic['CK']
+            "Cookie": f"source_type=501;{self.dic['CK']}"
         })
         if self.login() == True:
             if self.getTaskList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
