@@ -54,17 +54,16 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git    # �
 ```
 
 #### 变量值
-- 结果测试欢太所需CK为: 
-`source_type`、`TOKENSID`、`app_param`
+- 结果测试欢太所需CK为: `TOKENSID`、`app_param`
 
 #### 变量格式
 ```text
     名称= HT_COOKIE
     值=     {
             'user':'',                                      # 自定义备注(为了区分账号，包括未登录状态下)
-            'CK':'source_type=xxx; TOKENSID=TOKEN_xxxx;',
+            'CK':'TOKENSID=TOKEN_xxxx;',
             'UA':'UA',
-            'app_param':'{"a":"a","b":"b","c":"c"}'
+            'app_param':'{"a":"a","b":"b","c":"c"};'
             }
     备注=   随便填
 ```
