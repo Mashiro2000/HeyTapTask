@@ -26,9 +26,9 @@
 * [x] 每日签到
 * [x] 每日浏览商品任务
 * [x] 每日分享商品任务
-* [x] 每日点推送任务(已下架)
+* [x] ~~每日点推送任务~~(已下架)
 * [x] 赚积分活动
-* [x] 天天积分翻倍(默认关闭，基本上抽不到)
+* [x] 天天积分翻倍(默认注释，基本抽不到)
 * [x] 天天领现金任务列表(可能黑号)
 * [x] 天天领现金定时红包(可能黑号)
 * [x] 早睡打卡
@@ -39,11 +39,11 @@
 ```text
 │  HeyTap.py         # 欢太商城任务中心
 │  timingCash.py     # 欢太定时红包，建议配合Linux定时系统Crontab
-|  dailyCash.py      # 每日现金任务
+│  dailyCash.py      # 每日现金任务
 │  CheckInEarly.py   # 欢太商城，早睡报名或打卡，建议配合Linux定时系统Crontab
 │  PointsBattle.py   # 积分大作战
 │  formatCK.py       # 格式化CK(本地运行)
-|  README.md         # 说明文档
+│  README.md         # 说明文档
 ```
 
 
