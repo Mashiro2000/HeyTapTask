@@ -308,7 +308,7 @@ class DailyCash:
             "User-Agent":self.dic['UA']
         })
         self.sess.cookies.update({
-            "Cookie":self.dic['CK']
+            "Cookie": f"source_type=501;{self.dic['CK']}"
         })
         if self.login() == True:
             if self.getDailyCashTask() == True:         # 获取天天领现金数据，判断CK是否正确(登录可能成功，但无法跑任务)
