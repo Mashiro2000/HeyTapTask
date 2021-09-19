@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 '''
-cron:  * */1 * * * timingCash.py
+cron:  */30 * * * * timingCash.py
 new Env('欢太定时现金');
 '''
 
@@ -123,7 +123,7 @@ class TimingCash:
             "User-Agent":self.dic['UA']
         })
         self.sess.cookies.update({
-            "Cookie":self.dic['CK']
+            "Cookie": f"source_type=501;{self.dic['CK']}"
         })
         if self.login() == True:
             if self.getDailyCashTask() == True:
