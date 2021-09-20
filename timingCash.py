@@ -145,7 +145,7 @@ def getEnv(key):
     lists = []
     logger.info("尝试导入青龙面板CK...")
     variable = os.environ.get(key)
-    if (variable == '') or (variable == None):
+    if variable == '':
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
@@ -154,7 +154,7 @@ def getEnv(key):
 
 if __name__ == '__main__':
     for each in getEnv('HT_COOKIE'):
-        if each['CK'] != "" and each['UA'] != "":
+        if all(each.values()):
             timingCash = TimingCash(each)
             for count in range(3):
                 try:
