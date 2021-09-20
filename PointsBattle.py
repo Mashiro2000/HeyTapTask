@@ -226,7 +226,7 @@ def getEnv(key):
 
 if __name__ == '__main__':
     for each in getEnv('HT_COOKIE'):
-        if each['CK'] != "" and each['UA'] != "":
+        if all(each.values()):
             pointsBattle = PointsBattle(each)
             for count in range(3):
                 try:
