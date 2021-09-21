@@ -11,6 +11,7 @@ new Env('欢太积分大乱斗');
 '''
 
 import os
+import re
 import sys
 import time
 import json
@@ -37,6 +38,16 @@ except ModuleNotFoundError:
     print("缺少requests依赖！程序将尝试安装依赖！")
     os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
+
+# 配置文件
+try:
+    logger.info('尝试导入本地欢太CK...')
+    from HT_config import accounts,text
+    logger.info(text)
+    lists = accounts
+except:
+    logger.info('本地欢太CK不存在')
+    lists = []
 
 class PointsBattle:
     def __init__(self,dic):
@@ -195,12 +206,24 @@ class PointsBattle:
             "User-Agent":self.dic['UA']
         })
         self.sess.cookies.update({
-            "Cookie": f"source_type=501;{self.dic['CK']}"
+            "Cookie": self.dic['CK']
         })
         if self.login() == True:
             if self.getBattleList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runBattleTask()                        # 运行任务中心
             logger.info('*' * 40 + '\n')
+
+# 检测CK是否存在必备参数
+def checkHT(string):
+    if len(re.findall(r'source_type=501;',string)) == 0:
+        string =  'source_type=501;' + string
+    if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
+        logger.info('CK格式有误:缺少`TOKENSID`字段')
+        sys.exit(0)
+    if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
+        logger.info('CK格式有误:缺少`app_param`字段')
+        sys.exit(0)
+    return string
 
 # 格式化设备信息Json
 # 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
@@ -209,23 +232,27 @@ def transform(string):
     dic1 = eval(string)
     for i in dic1['app_param'][1:-1].split(','):
         dic2[i.split(':')[0]] = i.split(':')[-1]
-    dic1['CK'] = dic1['CK'] + f";app_param={json.dumps(dic2,ensure_ascii=False)}"
+    if dic1['CK'][-1] != ';':
+        dic1['CK'] = dic1['CK'] + ';'
+    dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
+    dic1['CK'] = checkHT(dic1['CK'])
     return dic1
 
 # 读取青龙CK
 def getEnv(key):
-    lists = []
+    lists2 = []
     logger.info("尝试导入青龙面板CK...")
     variable = os.environ.get(key)
     if variable == '':
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
-            lists.append(transform(each))
-    return lists
+            lists2.append(transform(each))
+    return lists2
 
 if __name__ == '__main__':
-    for each in getEnv('HT_COOKIE'):
+    lists.extend(getEnv('HT_COOKIE'))
+    for each in lists:
         if all(each.values()):
             pointsBattle = PointsBattle(each)
             for count in range(3):
