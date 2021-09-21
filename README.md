@@ -51,6 +51,7 @@
 ```text
 ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"                        # 国外机
 ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"    # 国内机(谢谢大佬的代理)
+注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
 ```
 
 #### 变量值
