@@ -54,7 +54,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 ```
 
 #### 变量值
-- 结果测试欢太所需CK为: `source_type`、`TOKENSID`、`app_param`
+- 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`
 - 后续不再支持青龙面板`环境变量`添加账号,请尽快将CK转移至配置文件
 - 原因:欢太变量采用json字符串,但青龙会将`HUAWEI P50`解析为`HUAWEIP50`
 - CK和UA中的特点字符会被错误的解析,为了长远发展，请使用配置文件
