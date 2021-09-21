@@ -42,8 +42,8 @@ except ModuleNotFoundError:
 # 配置文件
 try:
     logger.info('尝试导入本地欢太CK...')
-    from HT_config import accounts,test
-    logger.info(test)
+    from HT_config import accounts,text
+    logger.info(text)
     lists = accounts
 except:
     logger.info('本地欢太CK不存在')
@@ -498,8 +498,10 @@ def checkHT(string):
         string =  'source_type=501;' + string
     if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
         logger.info('CK格式有误:缺少`TOKENSID`字段')
+        sys.exit(0)
     if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
         logger.info('CK格式有误:缺少`app_param`字段')
+        sys.exit(0)
     return string
 
 # 格式化设备信息Json
@@ -544,3 +546,4 @@ if __name__ == '__main__':
             else:
                 logger.info(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                 break
+    sys.exit(0)
