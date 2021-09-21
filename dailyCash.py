@@ -380,3 +380,4 @@ if __name__ == '__main__':
             else:
                 logger.info(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                 break
+    sys.exit(0)
