@@ -49,6 +49,7 @@ if not os.path.exists('HT_config.py'):
     configText = requests.get(url=url,headers=headers).content.decode('utf8')
     with open(file= 'HT_config.py',mode='w',encoding='utf-8') as fc:
         fc.write(configText)
+    logger.info('下载命令执行完毕!')
     logger.info('请根据导航进行配置')
     logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
     sys.exit(0)
