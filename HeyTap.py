@@ -523,7 +523,7 @@ def getEnv(key):
     lists2 = []
     logger.info("尝试导入青龙面板CK...")
     variable = os.environ.get(key)
-    if variable == '':
+    if variable == None:
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
