@@ -493,6 +493,7 @@ class HeyTap:
                 self.runTaskCenter()                    # 运行任务中心
             logger.info('*' * 40 + '\n')
 
+# 检测CK是否存在必备参数
 def checkHT(string):
     if len(re.findall(r'source_type=501;',string)) == 0:
         string =  'source_type=501;' + string
