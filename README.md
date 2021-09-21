@@ -49,8 +49,8 @@
 
 #### 拉库指令
 ```text
-	ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"                        # 国外机
-    ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"    # 国内机(谢谢大佬的代理)
+ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"                        # 国外机
+ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"    # 国内机(谢谢大佬的代理)
 ```
 
 #### 变量值
