@@ -5,10 +5,6 @@
 # @File    : HT_config.py
 # @Software: PyCharm
 
-'''
-cron:  0 0 1 1 * HT_config.py
-new Env('欢太配置文件');
-'''
 ## 格式样本
 # {
 #     'user':'',        # 备注,必要
