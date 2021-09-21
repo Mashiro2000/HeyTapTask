@@ -49,8 +49,13 @@
 
 #### 拉库指令
 ```text
+第一次拉取脚本,请使用以下命令拉取脚本并下载配置文件:
 ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"                        # 国外机
 ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config" "HT_config"    # 国内机(谢谢大佬的代理)
+
+确认配置文件已下载，为避免自动更新擦除CK信息，请将以上拉库命令修改为:
+ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"                        # 国外机
+ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"    # 国内机(谢谢大佬的代理)
 ```
 
 #### 变量值
