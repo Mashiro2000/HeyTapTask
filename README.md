@@ -42,6 +42,7 @@
 │  dailyCash.py      # 每日现金任务
 │  CheckInEarly.py   # 欢太商城，早睡报名或打卡，建议配合Linux定时系统Crontab
 │  PointsBattle.py   # 积分大作战
+│  HT_config.py      # 欢太配置文件(推荐使用)
 │  README.md         # 说明文档
 ```
 
