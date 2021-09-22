@@ -1,8 +1,5 @@
 # <p align="center">QL_HeyTap</p>
 
-## 普通版本
-- 点击前往[HeyTap](https://github.com/Mashiro2000/HeyTap)
-
 ## 免责声明
 - 本仓库发布的QL_HeyTap项目中涉及的任何脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
 
@@ -46,8 +43,20 @@
 │  README.md         # 说明文档
 ```
 
+#### Linux部署
+```bash
+yum install python3 -y
 
-#### 拉库指令
+yum install git -y
+
+git clone https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git   # 国内git较慢，故添加代理前缀
+
+cd QL_HeyTap
+
+vi Ht_config.py
+```
+
+#### 青龙面板拉库指令
 ```text
 ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"                        # 国外机
 ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"    # 国内机(谢谢大佬的代理)
@@ -60,7 +69,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 - 原因:欢太变量采用json字符串,但青龙会将`HUAWEI P50`解析为`HUAWEIP50`
 - CK和UA中的特定字符会被错误的解析,为了长远发展，请使用配置文件
 
-#### 配置文件变量格式
+#### 编辑配置文件
 ```text
 # 推荐方案(HT_config.py)
 {
