@@ -545,7 +545,9 @@ def getEnv(key):
             lists2.append(transform(each))
     return lists2
 
-if __name__ == '__main__':
+# 兼容云函数
+def main(event, context):
+    global lists
     lists.extend(getEnv('HT_COOKIE'))
     for each in lists:
         if all(each.values()):
@@ -562,4 +564,6 @@ if __name__ == '__main__':
             else:
                 logger.info(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                 break
-    sys.exit(0)
+
+if __name__ == '__main__':
+    main(None,None)
