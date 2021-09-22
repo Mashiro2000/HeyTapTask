@@ -347,10 +347,10 @@ def checkHT(string):
         string =  'source_type=501;' + string
     if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
         logger.info('CK格式有误:缺少`TOKENSID`字段')
-        sys.exit(0)
+        return False
     if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
         logger.info('CK格式有误:缺少`app_param`字段')
-        sys.exit(0)
+        return False
     return string
 
 # 格式化设备信息Json
@@ -375,10 +375,14 @@ def getEnv(key):
         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
     else:
         for each in variable.split('&'):
-            lists2.append(transform(each))
+            result = transform(each)
+            if result:
+                lists2.append(result)
     return lists2
 
-if __name__ == '__main__':
+# 兼容云函数
+def main(event, context):
+    global lists
     lists.extend(getEnv('HT_COOKIE'))
     for each in lists:
         if all(each.values()):
@@ -395,4 +399,6 @@ if __name__ == '__main__':
             else:
                 logger.info(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                 break
-    sys.exit(0)
+
+if __name__ == '__main__':
+    main(None,None)
