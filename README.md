@@ -63,13 +63,13 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
 ```
 
-#### 变量值
+##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`
 - 后续不再支持青龙面板`环境变量`添加账号,请尽快将CK转移至配置文件
 - 原因:欢太变量采用json字符串,但青龙会将`HUAWEI P50`解析为`HUAWEIP50`
 - CK和UA中的特定字符会被错误的解析,为了长远发展，请使用配置文件
 
-#### 编辑配置文件
+##### 编辑配置文件(本地/青龙/云函数)
 ```text
 # 推荐方案(HT_config.py)
 {
@@ -79,7 +79,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 }
 ```
 
-#### 青龙环境变量格式
+##### 青龙环境变量格式(青龙)
 ```text
 # 不推荐,存在破坏格式的可能
 {
