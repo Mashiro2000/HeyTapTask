@@ -62,6 +62,7 @@ try:
     lists = accounts
 except:
     logger.info('本地欢太CK不存在')
+    lists = []
 
 class CheckInEarly:
     def __init__(self,dic):
