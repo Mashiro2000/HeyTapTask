@@ -43,7 +43,7 @@
 │  README.md         # 说明文档
 ```
 
-#### Linux部署
+#### 一、Linux部署
 ```bash
 yum install python3 -y
 
@@ -56,11 +56,16 @@ cd QL_HeyTap
 vi Ht_config.py
 ```
 
-#### 青龙面板拉库指令
+#### 二、青龙面板拉库指令
 ```text
 ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"                        # 国外机
 ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"    # 国内机(谢谢大佬的代理)
 注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
+```
+
+#### 三、云函数(待更新)
+```text
+None
 ```
 
 ##### 变量值
