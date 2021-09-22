@@ -62,7 +62,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 
 #### 配置文件变量格式
 ```text
-推荐方案(HT_config.py)
+# 推荐方案(HT_config.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
     'CK':'source_type=501;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴
@@ -72,7 +72,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 
 #### 青龙环境变量格式
 ```text
-不推荐,存在破坏格式的可能
+# 不推荐,存在破坏格式的可能
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
     'CK':'source_type=501;TOKENSID=TOKEN_xxxx;',  # 用户环境变量 Cookie,建议全部粘贴
