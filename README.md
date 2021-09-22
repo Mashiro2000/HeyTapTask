@@ -1,13 +1,13 @@
-# <p align="center">QL_HeyTap</p>
+# <p align="center">HeyTapTask</p>
 
 ## 免责声明
-- 本仓库发布的QL_HeyTap项目中涉及的任何脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
+- 本仓库发布的HeyTapTask项目中涉及的任何脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
 
-- 所有使用者在使用QL_HeyTap项目的任何部分时，需先遵守法律法规。对于一切使用不当所造成的后果，需自行承担.对任何脚本问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害.
+- 所有使用者在使用HeyTapTask项目的任何部分时，需先遵守法律法规。对于一切使用不当所造成的后果，需自行承担.对任何脚本问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害.
 
 - 如果任何单位或个人认为该项目可能涉嫌侵犯其权利，则应及时通知并提供身份证明，所有权证明，我们将在收到认证文件后删除相关文件.
 
-- 任何以任何方式查看此项目的人或直接或间接使用该QL_HeyTap项目的任何脚本的使用者都应仔细阅读此声明。本人保留随时更改或补充此免责声明的权利。一旦使用并复制了任何相关脚本或QL_HeyTap项目的规则，则视为您已接受此免责声明.
+- 任何以任何方式查看此项目的人或直接或间接使用该HeyTapTask项目的任何脚本的使用者都应仔细阅读此声明。本人保留随时更改或补充此免责声明的权利。一旦使用并复制了任何相关脚本或HeyTapTask项目的规则，则视为您已接受此免责声明.
 
 您必须在下载后的24小时内从计算机或手机中完全删除以上内容.
 
@@ -49,17 +49,17 @@ yum install python3 -y
 
 yum install git -y
 
-git clone https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git   # 国内git较慢，故添加代理前缀
+git clone https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git   # 国内git较慢，故添加代理前缀
 
-cd QL_HeyTap
+cd HeyTapTask
 
 vi Ht_config.py
 ```
 
 #### 二、青龙面板拉库指令
 ```text
-ql repo https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"                        # 国外机
-ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_config"    # 国内机(谢谢大佬的代理)
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_config"                        # 国外机
+ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT_config"    # 国内机(谢谢大佬的代理)
 注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
 ```
 
