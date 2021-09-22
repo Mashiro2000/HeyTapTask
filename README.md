@@ -60,12 +60,24 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/QL_HeyTap.git "" "HT_
 - 原因:欢太变量采用json字符串,但青龙会将`HUAWEI P50`解析为`HUAWEIP50`
 - CK和UA中的特定字符会被错误的解析,为了长远发展，请使用配置文件
 
-#### 变量格式
+#### 配置文件变量格式
 ```text
+推荐方案(HT_config.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
     'CK':'source_type=501;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴
     'UA':'UA'                                                   # 用户环境变量 User-Agent
+}
+```
+
+#### 青龙环境变量格式
+```text
+不推荐,存在破坏格式的可能
+{
+    'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
+    'CK':'source_type=501;TOKENSID=TOKEN_xxxx;',  # 用户环境变量 Cookie,建议全部粘贴
+    'UA':'UA',                                                   # 用户环境变量 User-Agent
+    'app_param':'{"a":"a","b":"b"}'
 }
 ```
 
