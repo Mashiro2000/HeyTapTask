@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 '''
-cron:  30 5,12 * * * dailyCash.py
+cron:  30 5,12 * * * DailyCash.py
 new Env('欢太每日现金');
 '''
 
