@@ -140,7 +140,7 @@ def checkHT(string):
     if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
         logger.info('CK格式有误:可能缺少`app_param`字段')
         return False
-    return string
+    return True
 
 # # 格式化设备信息Json
 # # 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
@@ -174,8 +174,7 @@ def main(event, context):
     global lists
     for each in lists:
         if all(each.values()):
-            result = checkHT(each['CK'])
-            if result:
+            if checkHT(each['CK']):
                 checkInEarly = CheckInEarly(each)
                 for count in range(3):
                     try:
