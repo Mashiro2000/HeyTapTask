@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 '''
-cron:  */30 * * * * timingCash.py
+cron:  */30 * * * * TimingCash.py
 new Env('欢太定时现金');
 '''
 
