@@ -510,13 +510,14 @@ class HeyTap:
 
 # 检测CK是否存在必备参数
 def checkHT(string):
-    if len(re.findall(r'source_type=501;',string)) == 0:
-        string =  'source_type=501;' + string
+    if len(re.findall(r'source_type=.*?;',string)) == 0:
+        logger.info('CK格式有误:可能缺少`source_type`字段')
+        return False
     if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
-        logger.info('CK格式有误:缺少`TOKENSID`字段')
+        logger.info('CK格式有误:可能缺少`TOKENSID`字段')
         return False
     if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
-        logger.info('CK格式有误:缺少`app_param`字段')
+        logger.info('CK格式有误:可能缺少`app_param`字段')
         return False
     return string
 
@@ -550,23 +551,23 @@ def checkHT(string):
 # 兼容云函数
 def main(event, context):
     global lists
-#     lists.extend(getEnv('HT_COOKIE'))
     for each in lists:
-        each['CK'] = checkHT(each['CK'])
         if all(each.values()):
-            heyTap = HeyTap(each)
-            for count in range(3):
-                try:
-                    time.sleep(random.randint(2,5))    # 随机延时
-                    heyTap.start()
+            result = checkHT(each['CK'])
+            if result:
+                heyTap = HeyTap(each)
+                for count in range(3):
+                    try:
+                        time.sleep(random.randint(2,5))    # 随机延时
+                        heyTap.start()
+                        break
+                    except requests.exceptions.ConnectionError:
+                        logger.info(f"{heyTap.dic['user']}\t请求失败，随机延迟后再次访问")
+                        time.sleep(random.randint(2,5))
+                        continue
+                else:
+                    logger.info(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
-                except requests.exceptions.ConnectionError:
-                    logger.info(f"{heyTap.dic['user']}\t请求失败，随机延迟后再次访问")
-                    time.sleep(random.randint(2,5))
-                    continue
-            else:
-                logger.info(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
-                break
 
 if __name__ == '__main__':
     main(None,None)
