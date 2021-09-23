@@ -79,19 +79,8 @@ None
 # 推荐方案(HT_config.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
-    'CK':'source_type=501;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴
+    'CK':'source_type=501;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴,且顺序不可乱
     'UA':'UA'                                                   # 用户环境变量 User-Agent
-}
-```
-
-##### 青龙环境变量格式(青龙)
-```text
-# 不推荐,存在破坏格式的可能
-{
-    'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
-    'CK':'source_type=501;TOKENSID=TOKEN_xxxx;',  # 用户环境变量 Cookie,建议全部粘贴
-    'UA':'UA',                                                   # 用户环境变量 User-Agent
-    'app_param':'{"a":"a","b":"b"}'
 }
 ```
 
