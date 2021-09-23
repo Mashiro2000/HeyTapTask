@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
 # @Author  : 2984922017@qq.com
-# @File    : dailyCash.py
+# @File    : DailyCash.py
 # @Software: PyCharm
 
 '''
@@ -343,62 +343,63 @@ class DailyCash:
 
 # 检测CK是否存在必备参数
 def checkHT(string):
-    if len(re.findall(r'source_type=501;',string)) == 0:
-        string =  'source_type=501;' + string
+    if len(re.findall(r'source_type=.*?;',string)) == 0:
+        logger.info('CK格式有误:可能缺少`source_type`字段')
+        return False
     if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
-        logger.info('CK格式有误:缺少`TOKENSID`字段')
+        logger.info('CK格式有误:可能缺少`TOKENSID`字段')
         return False
     if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
-        logger.info('CK格式有误:缺少`app_param`字段')
+        logger.info('CK格式有误:可能缺少`app_param`字段')
         return False
-    return string
+    return True
 
-# 格式化设备信息Json
-# 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
-def transform(string):
-    dic2 = {}
-    dic1 = eval(string)
-    for i in dic1['app_param'][1:-1].split(','):
-        dic2[i.split(':')[0]] = i.split(':')[-1]
-    if dic1['CK'][-1] != ';':
-        dic1['CK'] = dic1['CK'] + ';'
-    dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
-    dic1['CK'] = checkHT(dic1['CK'])
-    return dic1
+# # 格式化设备信息Json
+# # 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
+# def transform(string):
+#     dic2 = {}
+#     dic1 = eval(string)
+#     for i in dic1['app_param'][1:-1].split(','):
+#         dic2[i.split(':')[0]] = i.split(':')[-1]
+#     if dic1['CK'][-1] != ';':
+#         dic1['CK'] = dic1['CK'] + ';'
+#     dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
+#     dic1['CK'] = checkHT(dic1['CK'])
+#     return dic1
 
-# 读取青龙CK
-def getEnv(key):
-    lists2 = []
-    logger.info("尝试导入青龙面板CK...")
-    variable = os.environ.get(key)
-    if variable == None:
-        logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
-    else:
-        for each in variable.split('&'):
-            result = transform(each)
-            if result:
-                lists2.append(result)
-    return lists2
+# # 读取青龙CK
+# def getEnv(key):
+#     lists2 = []
+#     logger.info("尝试导入青龙面板CK...")
+#     variable = os.environ.get(key)
+#     if variable == None:
+#         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
+#     else:
+#         for each in variable.split('&'):
+#             result = transform(each)
+#             if result:
+#                 lists2.append(result)
+#     return lists2
 
 # 兼容云函数
 def main(event, context):
     global lists
-    lists.extend(getEnv('HT_COOKIE'))
     for each in lists:
         if all(each.values()):
-            dailyCash = DailyCash(each)
-            for count in range(3):
-                try:
-                    time.sleep(random.randint(2,5))    # 随机延时
-                    dailyCash.start()
+            if checkHT(each['CK']):
+                dailyCash = DailyCash(each)
+                for count in range(3):
+                    try:
+                        time.sleep(random.randint(2,5))    # 随机延时
+                        dailyCash.start()
+                        break
+                    except requests.exceptions.ConnectionError:
+                        logger.info(f"{dailyCash.dic['user']}\t请求失败，随机延迟后再次访问")
+                        time.sleep(random.randint(2,5))
+                        continue
+                else:
+                    logger.info(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
-                except requests.exceptions.ConnectionError:
-                    logger.info(f"{dailyCash.dic['user']}\t请求失败，随机延迟后再次访问")
-                    time.sleep(random.randint(2,5))
-                    continue
-            else:
-                logger.info(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
-                break
 
 if __name__ == '__main__':
     main(None,None)
