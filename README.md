@@ -69,8 +69,8 @@ None
 ```
 
 ##### 变量值
-- 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`
-- 后续不再支持青龙面板`环境变量`添加账号,请尽快将CK转移至配置文件
+- 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
+- 不再支持青龙面板`环境变量`添加账号的方案,请尽快将CK转移至配置文件
 - 原因:欢太变量采用json字符串,但青龙会将`HUAWEI P50`解析为`HUAWEIP50`
 - CK和UA中的特定字符会被错误的解析,为了长远发展，请使用配置文件
 
@@ -79,7 +79,7 @@ None
 # 推荐方案(HT_config.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
-    'CK':'source_type=501;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴,且顺序不可乱
+    'CK':'source_type=xxx;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴,且顺序不可乱
     'UA':'UA'                                                   # 用户环境变量 User-Agent
 }
 ```
