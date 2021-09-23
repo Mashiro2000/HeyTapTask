@@ -236,7 +236,7 @@ def checkHT(string):
     if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
         logger.info('CK格式有误:可能缺少`TOKENSID`字段')
         return False
-    if len(re.findall(r'app_param=.*?[;]*',string)) == 0:
+    if len(re.findall(r'app_param=.*?[;]?',string)) == 0:
         logger.info('CK格式有误:可能缺少`app_param`字段')
         return False
     return True
