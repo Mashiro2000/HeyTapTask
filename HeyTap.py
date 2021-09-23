@@ -520,38 +520,39 @@ def checkHT(string):
         return False
     return string
 
-# 格式化设备信息Json
-# 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
-def transform(string):
-    dic2 = {}
-    dic1 = eval(string)
-    for i in dic1['app_param'][1:-1].split(','):
-        dic2[i.split(':')[0]] = i.split(':')[-1]
-    if dic1['CK'][-1] != ';':
-        dic1['CK'] = dic1['CK'] + ';'
-    dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
-    dic1['CK'] = checkHT(dic1['CK'])
-    return dic1
+# # 格式化设备信息Json
+# # 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
+# def transform(string):
+#     dic2 = {}
+#     dic1 = eval(string)
+#     for i in dic1['app_param'][1:-1].split(','):
+#         dic2[i.split(':')[0]] = i.split(':')[-1]
+#     if dic1['CK'][-1] != ';':
+#         dic1['CK'] = dic1['CK'] + ';'
+#     dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
+#     dic1['CK'] = checkHT(dic1['CK'])
+#     return dic1
 
-# 读取青龙CK
-def getEnv(key):
-    lists2 = []
-    logger.info("尝试导入青龙面板CK...")
-    variable = os.environ.get(key)
-    if variable == None:
-        logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
-    else:
-        for each in variable.split('&'):
-            result = transform(each)
-            if result:
-                lists2.append(result)
-    return lists2
+# # 读取青龙CK
+# def getEnv(key):
+#     lists2 = []
+#     logger.info("尝试导入青龙面板CK...")
+#     variable = os.environ.get(key)
+#     if variable == None:
+#         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
+#     else:
+#         for each in variable.split('&'):
+#             result = transform(each)
+#             if result:
+#                 lists2.append(result)
+#     return lists2
 
 # 兼容云函数
 def main(event, context):
     global lists
-    lists.extend(getEnv('HT_COOKIE'))
+#     lists.extend(getEnv('HT_COOKIE'))
     for each in lists:
+        each['CK'] = checkHT(each['CK'])
         if all(each.values()):
             heyTap = HeyTap(each)
             for count in range(3):
