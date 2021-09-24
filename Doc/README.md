@@ -12,7 +12,7 @@
 ![](https://s3.bmp.ovh/imgs/2021/09/2e2aecf7ef575e7c.png)
 
 ### 四、复制源码
-![](https://s3.bmp.ovh/imgs/2021/09/bec1615675484f1c.png)
+![](https://s3.bmp.ovh/imgs/2021/09/eae4be5ebe03504d.png)
 
 ### 五、部署代码
 ![](https://s3.bmp.ovh/imgs/2021/09/3cfb6e908f2551d5.png)
