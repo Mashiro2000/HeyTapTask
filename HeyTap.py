@@ -433,7 +433,7 @@ class HeyTap:
             'sku':'',
             'spu':''
         }
-        for index in range(self.sum):
+        for index in range(self.sum + 1):
             response = self.sess.post(url=url,headers=headers,data=data).json()
             if response['no'] == '0':
                 if response['data']['goods_name']:
