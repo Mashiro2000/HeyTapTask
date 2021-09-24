@@ -22,3 +22,6 @@
 
 ### 七、定时规则
 ![](https://s3.bmp.ovh/imgs/2021/09/911f19c5e34daac7.png)
+
+### 八、配置文件
+![](https://s3.bmp.ovh/imgs/2021/09/ab3e5a182c9affcb.png)
