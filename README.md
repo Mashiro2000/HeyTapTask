@@ -64,10 +64,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 ```
 
 #### 三、云函数(待更新)
-[腾讯云函数](https://console.cloud.tencent.com/scf/list)
-```text
-None
-```
+[部署方案](#)
 
 ##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
