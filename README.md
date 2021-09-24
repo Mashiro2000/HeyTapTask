@@ -64,6 +64,7 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 ```
 
 #### 三、云函数(待更新)
+[腾讯云函数](https://console.cloud.tencent.com/scf/list)
 ```text
 None
 ```
