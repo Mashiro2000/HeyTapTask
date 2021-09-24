@@ -44,7 +44,7 @@
 ```
 
 #### 一、Linux部署
-```bash
+```text
 yum install python3 -y
 
 yum install git -y
