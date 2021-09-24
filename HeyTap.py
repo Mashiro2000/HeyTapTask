@@ -39,7 +39,7 @@ except ModuleNotFoundError:
     os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
-# 检测配置文件是否已下载
+# 检测配置文件是否已下载(云函数不适用)
 if not os.path.exists('HT_config.py'):
     logger.info('配置文件不存在,尝试进行下载...')
     url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
