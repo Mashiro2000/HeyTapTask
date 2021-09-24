@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
-# @Author  : 2984922017@qq.com
+# @Author  : MashiroF
 # @File    : TimingCash.py
 # @Software: PyCharm
 
