@@ -39,19 +39,23 @@ except ModuleNotFoundError:
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
 # 检测配置文件是否已下载(云函数不适用)
-if not os.path.exists('HT_config.py'):
-    logger.info('配置文件不存在,尝试进行下载...')
+try:
+    if not os.path.exists('HT_config.py'):
+        logger.info('配置文件不存在,尝试进行下载...')
+        url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
+        headers = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52'
+        }
+        configText = requests.get(url=url,headers=headers).content.decode('utf8')
+        with open(file= 'HT_config.py',mode='w',encoding='utf-8') as fc:
+            fc.write(configText)
+        logger.info('下载命令执行完毕!')
+        logger.info('请根据导航进行配置')
+        logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
+        sys.exit(0)
+except:
     url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
-    headers = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52'
-    }
-    configText = requests.get(url=url,headers=headers).content.decode('utf8')
-    with open(file= 'HT_config.py',mode='w',encoding='utf-8') as fc:
-        fc.write(configText)
-    logger.info('下载命令执行完毕!')
-    logger.info('请根据导航进行配置')
-    logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
-    sys.exit(0)
+    logger.info('请手动下载配置文件到当前目录')
 
 # 配置文件
 try:
