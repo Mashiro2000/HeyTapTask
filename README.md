@@ -30,18 +30,19 @@
 * [x] 天天领现金定时红包(可能黑号)
 * [x] 早睡打卡
 * [x] 积分大作战(realme)
-* [x] 积分大作战(HeyTap) -> 该活动由[@kuake0](https://github.com/kuake0)提供
+* [x] 积分大作战(HeyTap) -> 该活动由[@kuake0](https://github.com/kuake0)发现
 * [ ] 发信功能
 
 ## 文件说明
 ```text
-│  HeyTap.py         # 欢太商城任务中心
-│  timingCash.py     # 欢太定时红包，建议配合Linux定时系统Crontab
-│  dailyCash.py      # 每日现金任务
-│  CheckInEarly.py   # 欢太商城，早睡报名或打卡，建议配合Linux定时系统Crontab
-│  PointsBattle.py   # 积分大作战
-│  HT_config.py      # 欢太配置文件(推荐使用)
-│  README.md         # 说明文档
+│  HeyTap.py            # 欢太商城任务中心
+│  timingCash.py        # 欢太定时红包，建议配合Linux定时系统Crontab
+│  dailyCash.py         # 每日现金任务
+│  CheckInEarly.py      # 欢太商城，早睡报名或打卡，建议配合Linux定时系统Crontab
+│  BattleForHeyTap.py   # 积分大作战(欢太)
+│  BattleForRealMe.py   # 积分大作战(真我)
+│  HT_config.py         # 欢太配置文件(推荐使用)
+│  README.md            # 说明文档
 ```
 
 #### 一、Linux部署
