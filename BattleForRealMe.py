@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/16
 # @Author  : MashiroF
-# @File    : PointsBattle.py
+# @File    : BattleForRealMe.py
 # @Software: PyCharm
 
 '''
-cron:  40 5,12 * * * PointsBattle.py
-new Env('欢太积分大乱斗');
+cron:  40 5,12 * * * BattleForRealMe.py
+new Env('真我积分大乱斗');
 '''
 
 import os
@@ -64,7 +64,7 @@ except:
     logger.info('本地欢太CK不存在')
     lists = []
 
-class PointsBattle:
+class BattleForRealMe:
     def __init__(self,dic):
         self.dic = dic
         self.sess = requests.session()
@@ -214,6 +214,13 @@ class PointsBattle:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     logger.info(f"[{each['title']}]\t任务完成")
+            elif each['title'] == '浏览真我GT Neo2':
+                if each['t_status'] == 0:
+                    self.runViewTask(dic=each)
+                elif each['t_status'] == 1:
+                    self.receiveAward(each)
+                elif each['t_status'] == 2:
+                    logger.info(f"[{each['title']}]\t任务完成")
 
     # 执行欢太商城实例对象
     def start(self):
@@ -274,18 +281,18 @@ def main(event, context):
     for each in lists:
         if all(each.values()):
             if checkHT(each['CK']):
-                pointsBattle = PointsBattle(each)
+                battleForRealMe = BattleForRealMe(each)
                 for count in range(3):
                     try:
                         time.sleep(random.randint(2,5))    # 随机延时
-                        pointsBattle.start()
+                        battleForRealMe.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        logger.info(f"{pointsBattle.dic['user']}\t请求失败，随机延迟后再次访问")
+                        logger.info(f"{battleForRealMe.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    logger.info(f"账号: {pointsBattle.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    logger.info(f"账号: {battleForRealMe.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
 
 if __name__ == '__main__':
