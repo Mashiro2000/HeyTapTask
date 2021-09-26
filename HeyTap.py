@@ -52,10 +52,13 @@ try:
         logger.info('下载命令执行完毕!')
         logger.info('请根据导航进行配置')
         logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
+        time.sleep(3)
         sys.exit(0)
 except:
     url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
     logger.info('请手动下载配置文件到当前目录')
+    time.sleep(3)
+    sys.exit(0)
 
 # 配置文件
 try:
