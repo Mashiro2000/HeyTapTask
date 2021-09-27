@@ -31,7 +31,7 @@
 * [x] 早睡打卡
 * [x] 积分大作战(realme)
 * [x] 积分大作战(HeyTap) 由@kuake0挖掘
-* [x] 配信功能 由curtinlv开发
+* [x] 配信功能 由@curtinlv开发
 
 ## 文件说明
 ```text
