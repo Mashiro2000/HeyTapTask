@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 '''
-cron:  25 5,12 * * * HeyTap.py
+cron:  25 5,12 * * * TaskCenter.py
 new Env('欢太任务中心');
 '''
 
