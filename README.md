@@ -31,17 +31,18 @@
 * [x] 早睡打卡
 * [x] 积分大作战(realme)
 * [x] 积分大作战(HeyTap) 由[@kuake0](https://github.com/kuake0)挖掘
-* [ ] 发信功能
+* [x] 配信功能 由[@curtinlv](https://github.com/curtinlv)开发
 
 ## 文件说明
 ```text
 │  HeyTap.py            # 欢太商城任务中心
-│  TimingCash.py        # 欢太定时红包，建议配合Linux定时系统Crontab
+│  TimingCash.py        # 欢太定时红包，建议配合定时系统
 │  DailyCash.py         # 每日现金任务
-│  CheckInEarly.py      # 欢太商城，早睡报名或打卡，建议配合Linux定时系统Crontab
+│  CheckInEarly.py      # 欢太商城，早睡报名或打卡，建议配合定时系统
 │  BattleForHeyTap.py   # 积分大作战(欢太)
 │  BattleForRealMe.py   # 积分大作战(真我)
 │  HT_config.py         # 欢太配置文件(推荐使用)
+│  sendNotify.py        # 欢太配信文件
 │  README.md            # 说明文档
 ```
 
