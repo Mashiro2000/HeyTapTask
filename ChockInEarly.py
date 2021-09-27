@@ -6,8 +6,8 @@
 # @Software: PyCharm
 
 '''
-cron:  25 5,12 * * * HeyTap.py
-new Env('欢太任务中心');
+cron:  35 0,19 * * * ChockInEarly.py
+new Env('欢太早睡打卡');
 '''
 
 import os
