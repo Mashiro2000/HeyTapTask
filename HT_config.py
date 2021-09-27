@@ -1,11 +1,14 @@
-# !/usr/bin/env python
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
 # @Author  : MashiroF
 # @File    : HT_config.py
 # @Software: PyCharm
 
-## 格式样本
+## 黑名单样本
+# notifyBlackList = ['TimingCash','DailyCash']
+
+## 账号管理样本
 # {
 #     'user':'',        # 备注,必要
 #     'CK':'',          # Cookie,必要(建议全部粘贴)
@@ -20,6 +23,9 @@ text = """
 CK最简格式:'source_type=xxx;TOKENSID=xxx;app_param=xxx;'
 """
 
+# 通知黑名单
+notifyBlackList = ['TimingCash','']
+
 ## 账号管理
 accounts = [
     {
@@ -31,5 +37,5 @@ accounts = [
         'user':'',
         'CK':'',
         'UA':''
-    }
+    },
 ]

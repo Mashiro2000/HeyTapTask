@@ -27,47 +27,69 @@ stream = logging.StreamHandler()
 stream.setFormatter(logFormat)
 logger.addHandler(stream)
 
-# 日志录入时间
-logger.info(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
-
 # 第三方库
 try:
     import requests
 except ModuleNotFoundError:
-    print("缺少requests依赖！程序将尝试安装依赖！")
+    logger.info("缺少requests依赖！程序将尝试安装依赖！")
     os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
-# 检测配置文件是否已下载(云函数不适用)
-try:
-    if not os.path.exists('HT_config.py'):
-        logger.info('配置文件不存在,尝试进行下载...')
-        url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
-        headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52'
-        }
-        configText = requests.get(url=url,headers=headers).content.decode('utf8')
-        with open(file= 'HT_config.py',mode='w',encoding='utf-8') as fc:
-            fc.write(configText)
-        logger.info('下载命令执行完毕!')
-        logger.info('请根据导航进行配置')
-        logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
+# 检测配置文件并下载(云函数可能不适用)
+def checkFile(urlList):
+    exitFlag = False
+    for url in urlList:
+        fileName = url.split('/')[-1]
+        fileUrl = f'https://ghproxy.com/{url}'
+        try:
+            if not os.path.exists(fileName):
+                exitFlag = True
+                logger.info(f"`{fileName}`不存在,尝试进行下载...")
+                content = requests.get(url=fileUrl).content.decode('utf-8')
+                with open(file=fileName, mode='w', encoding='utf-8') as fc:
+                    fc.write(content)
+        except:
+            logger.info(f'请手动下载配置文件`{fileName[:-3]}`到 {os.path.dirname(os.path.abspath(__file__))}')
+            logger.info(f'下载地址:{fileUrl}\n')
+    if os.path.exists('/ql/config/auth.json'):
+        # 判断环境，青龙面板则提示
+        logger.info(f"CK配置 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑\n")
+    if exitFlag ==True:
+        # 发生下载行为,应退出程序，编辑配置文件
         time.sleep(3)
         sys.exit(0)
+
+# 检测必备文件
+fileUrlList = [
+    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/sendNotify.py',
+    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/HT_config.py'
+]
+checkFile(fileUrlList)
+
+# 配信文件
+try:
+    from sendNotify import send
 except:
-    url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
-    logger.info('请手动下载配置文件到当前目录')
-    time.sleep(3)
-    sys.exit(0)
+    logger.info('推送文件有误')
+finally:
+    allMess = ''
+
+# 配信内容格式化
+def notify(content=None):
+    global allMess
+    allMess = allMess + content + '\n'
+    logger.info(content)
+
+# 日志录入时间
+notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
 # 配置文件
 try:
-    logger.info('尝试导入本地欢太CK...')
-    from HT_config import accounts,text
-    logger.info(text)
+    from HT_config import notifyBlackList,accounts,text
+    notify(text)
     lists = accounts
 except:
-    logger.info('本地欢太CK不存在')
+    notify('更新配置文件或检测CK')
     lists = []
 
 class BattleForHeyTap:
@@ -88,10 +110,10 @@ class BattleForHeyTap:
         }
         response = self.sess.get(url=url,headers=headers).json()
         if response['code'] == 200:
-            logger.info(f"{self.dic['user']}\t登录成功")
+            notify(f"{self.dic['user']}\t登录成功")
             return True
         else:
-            logger.info(f"{self.dic['user']}\t登录失败")
+            notify(f"{self.dic['user']}\t登录失败")
             return False
 
     def receiveAward(self,dic):
@@ -114,9 +136,9 @@ class BattleForHeyTap:
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            logger.info(f"[{dic['title']}]\t{response['msg']}")
+            notify(f"[{dic['title']}]\t{response['msg']}")
         else:
-            logger.info(f"[{dic['title']}]\t{response['msg']}")
+            notify(f"[{dic['title']}]\t{response['msg']}")
         time.sleep(random.randint(3,5))
 
     def shareGoods(self,count=2,flag=None,dic=None):
@@ -135,7 +157,7 @@ class BattleForHeyTap:
         }
         for i in range(count + random.randint(1,3)):
             self.sess.get(url=url,headers=headers,params=params)
-            logger.info(f"正在执行第{i+1}次微信分享...")
+            notify(f"正在执行第{i+1}次微信分享...")
             time.sleep(random.randint(7,10))
         if flag == 1: #来源积分大乱斗
             self.receiveAward(dic=dic)
@@ -162,10 +184,10 @@ class BattleForHeyTap:
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            logger.info(f"[{dic['title']}]\t{response['msg']}")
+            notify(f"[{dic['title']}]\t{response['msg']}")
             self.receiveAward(dic)
         else:
-            logger.info(f"[{dic['title']}]\t{response['msg']}")
+            notify(f"[{dic['title']}]\t{response['msg']}")
         time.sleep(random.randint(3,5))
 
     def getBattleList(self):
@@ -186,7 +208,7 @@ class BattleForHeyTap:
             self.taskData = response['data']
             return True
         else:
-            logger.info(f"{response['msg']}")
+            notify(f"{response['msg']}")
             return False
         time.sleep(random.randint(3,5))
 
@@ -198,49 +220,49 @@ class BattleForHeyTap:
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t领取成功")
+                    notify(f"[{each['title']}]\t领取成功")
             elif each['title'] == '浏览潮流好物专区':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '观看realme直播':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '观看一加直播':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '浏览超级宠粉专区':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '预约真我GT Neo2':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '浏览realme专区':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    logger.info(f"[{each['title']}]\t任务完成")
+                    notify(f"[{each['title']}]\t任务完成")
 
     # 执行欢太商城实例对象
     def start(self):
@@ -253,18 +275,19 @@ class BattleForHeyTap:
         if self.login() == True:
             if self.getBattleList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runBattleTask()                        # 运行任务中心
-            logger.info('*' * 40 + '\n')
+            notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
-def checkHT(string):
-    if len(re.findall(r'source_type=.*?;',string)) == 0:
-        logger.info('CK格式有误:可能缺少`source_type`字段')
+def checkHT(dic):
+    CK = dic['CK']
+    if len(re.findall(r'source_type=.*?;',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`source_type`字段")
         return False
-    if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
-        logger.info('CK格式有误:可能缺少`TOKENSID`字段')
+    if len(re.findall(r'TOKENSID=.*?;',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`TOKENSID`字段")
         return False
-    if len(re.findall(r'app_param=.*?[;]?',string)) == 0:
-        logger.info('CK格式有误:可能缺少`app_param`字段')
+    if len(re.findall(r'app_param=.*?[;]?',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`app_param`字段")
         return False
     return True
 
@@ -284,10 +307,10 @@ def checkHT(string):
 # # 读取青龙CK
 # def getEnv(key):
 #     lists2 = []
-#     logger.info("尝试导入青龙面板CK...")
+#     notify("尝试导入青龙面板CK...")
 #     variable = os.environ.get(key)
 #     if variable == None:
-#         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
+#         notify("青龙面板环境变量 TH_COOKIE 不存在！")
 #     else:
 #         for each in variable.split('&'):
 #             result = transform(each)
@@ -300,7 +323,7 @@ def main(event, context):
     global lists
     for each in lists:
         if all(each.values()):
-            if checkHT(each['CK']):
+            if checkHT(each):
                 battleForHeyTap = BattleForHeyTap(each)
                 for count in range(3):
                     try:
@@ -308,12 +331,15 @@ def main(event, context):
                         battleForHeyTap.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        logger.info(f"{battleForHeyTap.dic['user']}\t请求失败，随机延迟后再次访问")
+                        notify(f"{battleForHeyTap.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    logger.info(f"账号: {battleForHeyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    notify(f"账号: {battleForHeyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
+    if not os.path.basename(__file__)[:-3] in notifyBlackList:
+        notify('欢太项目:https://github.com/Mashiro2000/HeyTapTask')
+        send('欢太积分大乱斗',allMess)
 
 if __name__ == '__main__':
     main(None,None)

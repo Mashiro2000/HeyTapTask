@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
 # @Author  : MashiroF
@@ -9,6 +9,7 @@
 cron:  25 5,12 * * * HeyTap.py
 new Env('欢太任务中心');
 '''
+
 
 import os
 import re
@@ -27,47 +28,69 @@ stream = logging.StreamHandler()
 stream.setFormatter(logFormat)
 logger.addHandler(stream)
 
-# 日志录入时间
-logger.info(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
-
 # 第三方库
 try:
     import requests
 except ModuleNotFoundError:
-    print("缺少requests依赖！程序将尝试安装依赖！")
+    logger.info("缺少requests依赖！程序将尝试安装依赖！")
     os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
-# 检测配置文件是否已下载(云函数不适用)
-try:
-    if not os.path.exists('HT_config.py'):
-        logger.info('配置文件不存在,尝试进行下载...')
-        url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
-        headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52'
-        }
-        configText = requests.get(url=url,headers=headers).content.decode('utf8')
-        with open(file= 'HT_config.py',mode='w',encoding='utf-8') as fc:
-            fc.write(configText)
-        logger.info('下载命令执行完毕!')
-        logger.info('请根据导航进行配置')
-        logger.info('青龙面板 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑')
+# 检测配置文件并下载(云函数可能不适用)
+def checkFile(urlList):
+    exitFlag = False
+    for url in urlList:
+        fileName = url.split('/')[-1]
+        fileUrl = f'https://ghproxy.com/{url}'
+        try:
+            if not os.path.exists(fileName):
+                exitFlag = True
+                logger.info(f"`{fileName}`不存在,尝试进行下载...")
+                content = requests.get(url=fileUrl).content.decode('utf-8')
+                with open(file=fileName, mode='w', encoding='utf-8') as fc:
+                    fc.write(content)
+        except:
+            logger.info(f'请手动下载配置文件`{fileName[:-3]}`到 {os.path.dirname(os.path.abspath(__file__))}')
+            logger.info(f'下载地址:{fileUrl}\n')
+    if os.path.exists('/ql/config/auth.json'):
+        # 判断环境，青龙面板则提示
+        logger.info(f"CK配置 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑\n")
+    if exitFlag ==True:
+        # 发生下载行为,应退出程序，编辑配置文件
         time.sleep(3)
         sys.exit(0)
+
+# 检测必备文件
+fileUrlList = [
+    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/sendNotify.py',
+    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/HT_config.py'
+]
+checkFile(fileUrlList)
+
+# 配信文件
+try:
+    from sendNotify import send
 except:
-    url = 'https://ghproxy.com/https://raw.githubusercontent.com/Mashiro2000/QL_HeyTap/main/HT_config.py'
-    logger.info('请手动下载配置文件到当前目录')
-    time.sleep(3)
-    sys.exit(0)
+    logger.info('推送文件有误')
+finally:
+    allMess = ''
+
+# 配信内容格式化
+def notify(content=None):
+    global allMess
+    allMess = allMess + content + '\n'
+    logger.info(content)
+
+# 日志录入时间
+notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
 # 配置文件
 try:
-    logger.info('尝试导入本地欢太CK...')
-    from HT_config import accounts,text
-    logger.info(text)
+    from HT_config import notifyBlackList,accounts,text
+    notify(text)
     lists = accounts
 except:
-    logger.info('本地欢太CK不存在')
+    notify('更新配置文件或检测CK')
     lists = []
 
 class HeyTap:
@@ -88,10 +111,10 @@ class HeyTap:
         }
         response = self.sess.get(url=url,headers=headers).json()
         if response['code'] == 200:
-            logger.info(f"{self.dic['user']}\t登录成功")
+            notify(f"{self.dic['user']}\t登录成功")
             return True
         else:
-            logger.info(f"{self.dic['user']}\t登录失败")
+            notify(f"{self.dic['user']}\t登录失败")
             return False
 
     # 任务中心
@@ -115,7 +138,7 @@ class HeyTap:
             self.taskData = response['data']
             return True
         else:
-            logger.info(f"{self.dic['user']}\t失败原因:{response['errorMessage']}")
+            notify(f"{self.dic['user']}\t失败原因:{response['errorMessage']}")
             return False
 
     # 每日签到
@@ -141,7 +164,7 @@ class HeyTap:
                     while True:
                         response = self.sess.post(url=url, headers=headers,data=data).json()
                         if response['code'] == 200:
-                            logger.info(f"{self.dic['user']}\t签到结果:{response['data']['message']}")
+                            notify(f"{self.dic['user']}\t签到结果:{response['data']['message']}")
                             break
                         elif response['code'] == 1000005:
                             data = {
@@ -150,12 +173,12 @@ class HeyTap:
                                 'gift': each['gift']
                             }
                         else:
-                            logger.info(f"{self.dic['user']}\t签到结果:{response['errorMessage']}")
+                            notify(f"{self.dic['user']}\t签到结果:{response['errorMessage']}")
                             break
         elif self.clockInData['status'] == 1:
-            logger.info(f"{self.dic['user']}\t今日已签到")
+            notify(f"{self.dic['user']}\t今日已签到")
         else:
-            logger.info(f"{self.dic['user']}\t未知错误")
+            notify(f"{self.dic['user']}\t未知错误")
 
     # 秒杀详情页获取商品数据
     def getGoodMess(self,count=10):
@@ -194,7 +217,7 @@ class HeyTap:
         elif self.viewData['completeStatus'] == 1:
             self.cashingCredits(self.viewData['name'],self.viewData['marking'], self.viewData['type'],self.viewData['credits'])
         elif self.viewData['completeStatus'] == 2:
-            logger.info(f"[{self.viewData['name']}]\t已完成，奖励已领取")
+            notify(f"[{self.viewData['name']}]\t已完成，奖励已领取")
             time.sleep(random.randint(1,3))
 
 
@@ -214,7 +237,7 @@ class HeyTap:
             for each in result['detail']:
                 url = f"https://msec.opposhop.cn/goods/v1/info/sku?skuId={each['skuid']}"
                 self.sess.get(url=url,headers=headers)
-                logger.info(f"正在浏览商品id:{each['skuid']}...")
+                notify(f"正在浏览商品id:{each['skuid']}...")
                 time.sleep(random.randint(7,10))
             if flag == 1:       # 来源任务中心的浏览任务
                 self.cashingCredits(self.viewData['name'], self.viewData['marking'], self.viewData['type'],self.viewData['credits'])
@@ -228,7 +251,7 @@ class HeyTap:
         elif self.shareData['completeStatus'] == 1:
             self.cashingCredits(self.shareData['name'],self.shareData['marking'], self.shareData['type'],self.shareData['credits'])
         elif self.shareData['completeStatus'] == 2:
-            logger.info(f"[{self.shareData['name']}]\t已完成，奖励已领取")
+            notify(f"[{self.shareData['name']}]\t已完成，奖励已领取")
             time.sleep(random.randint(1,3))
 
     # 分享商品
@@ -248,7 +271,7 @@ class HeyTap:
         }
         for i in range(count + random.randint(1,3)):
             self.sess.get(url=url,headers=headers,params=params)
-            logger.info(f"正在执行第{i+1}次微信分享...")
+            notify(f"正在执行第{i+1}次微信分享...")
             time.sleep(random.randint(7,10))
         if flag == 1: # 来源任务中心
             self.cashingCredits(self.shareData['name'],self.shareData['marking'], self.shareData['type'],self.shareData['credits'])
@@ -261,7 +284,7 @@ class HeyTap:
 #         elif self.pushData['completeStatus'] == 1:
 #             self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
 #         elif self.pushData['completeStatus'] == 2:
-#             logger.info(f"[{self.pushData['name']}]\t已完成，奖励已领取")
+#             notify(f"[{self.pushData['name']}]\t已完成，奖励已领取")
 #             time.sleep(random.randint(1,3))
 
 #     # 点击推送
@@ -281,7 +304,7 @@ class HeyTap:
 #         }
 #         for i in range(count + random.randint(1,3)):
 #             self.sess.get(url=url,headers=headers,params=params)
-#             logger.info(f"正在点击第{i+1}次信息推送...")
+#             notify(f"正在点击第{i+1}次信息推送...")
 #             time.sleep(random.randint(7,10))
 #         self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
 
@@ -306,9 +329,9 @@ class HeyTap:
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['code'] == 200:
-            logger.info(f'{name}\t已领取奖励')
+            notify(f'{name}\t已领取奖励')
         else:
-            logger.info(f'{name}\t领取失败')
+            notify(f'{name}\t领取失败')
         time.sleep(random.randint(1,3))
 
     # 赚积分(抽奖)任务
@@ -341,7 +364,7 @@ class HeyTap:
             if len(self.total):
                 self.earnPoint()
             else:
-                logger.info("[赚积分]\t已完成，奖励已领取")
+                notify("[赚积分]\t已完成，奖励已领取")
         time.sleep(random.randint(1,3))
 
     # 赚积分(抽奖)
@@ -354,14 +377,14 @@ class HeyTap:
                 elif each['t_status'] == 1:
                     self.getLottery(each)
                 elif each['t_status'] == 2:
-                    logger.info("每日任务\t抽奖次数已领取")
+                    notify("每日任务\t抽奖次数已领取")
             elif each['title'] == '浏览商详':
                 if each['t_status'] == 0:
                     self.viewGoods(count=6,flag=2,dic=each)     # 调用浏览任务的函数，且抓包结果来看，固定6次
                 elif each['t_status'] == 1:
                     self.getLottery(each)
                 elif each['t_status'] == 2:
-                    logger.info("浏览商详\t抽奖次数已领取")
+                    notify("浏览商详\t抽奖次数已领取")
             time.sleep(random.randint(1,3))
         self.earnPointLottery()
 
@@ -385,10 +408,10 @@ class HeyTap:
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            logger.info(f"{dic['title']}\t签到成功")
+            notify(f"{dic['title']}\t签到成功")
             self.getLottery(dic)
         else:
-            logger.info(f"{dic['title']}\t签到失败")
+            notify(f"{dic['title']}\t签到失败")
 
     # 领取抽奖机会
     def getLottery(self,dic):
@@ -410,10 +433,10 @@ class HeyTap:
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            logger.info(f"{dic['title']}\t领取成功")
+            notify(f"{dic['title']}\t领取成功")
             self.sum = self.sum + int(dic['number'])
         else:
-            logger.info(f"{dic['title']}\t领取失败")
+            notify(f"{dic['title']}\t领取失败")
 
     # 赚积分抽奖
     def earnPointLottery(self):
@@ -443,14 +466,14 @@ class HeyTap:
             response = self.sess.post(url=url,headers=headers,data=data).json()
             if response['no'] == '0':
                 if response['data']['goods_name']:
-                    logger.info(f"赚积分转盘\t抽奖结果:{response['data']['goods_name']}")
+                    notify(f"赚积分转盘\t抽奖结果:{response['data']['goods_name']}")
                 else:
-                    logger.info(f"赚积分转盘\t抽奖结果:空气")
+                    notify(f"赚积分转盘\t抽奖结果:空气")
             elif response['no'] == '-8':
-                logger.info(f"赚积分转盘\t抽奖失败:{response['msg']}")
+                notify(f"赚积分转盘\t抽奖失败:{response['msg']}")
                 break
             else:
-                logger.info(f"赚积分转盘\t抽奖失败:{response}")
+                notify(f"赚积分转盘\t抽奖失败:{response}")
             time.sleep(random.randint(1,3))
 
     # 天天积分翻倍
@@ -481,14 +504,14 @@ class HeyTap:
             response = self.sess.post(url=url,headers=headers,data=data).json()
             if response['no'] == '0':
                 if response['data']['goods_name']:
-                    logger.info(f"翻倍转盘\t抽奖结果:{response['data']['goods_name']}")
+                    notify(f"翻倍转盘\t抽奖结果:{response['data']['goods_name']}")
                 else:
-                    logger.info(f"翻倍转盘\t抽奖结果:空气")
+                    notify(f"翻倍转盘\t抽奖结果:空气")
             elif response['no'] == '-11':
-                logger.info(f"翻倍转盘\t抽奖失败:{response['msg']}")
+                notify(f"翻倍转盘\t抽奖失败:{response['msg']}")
                 break
             else:
-                logger.info(f"翻倍转盘\t抽奖失败:{response}")
+                notify(f"翻倍转盘\t抽奖失败:{response}")
             time.sleep(random.randint(1,3))
 
     # 跑任务中心
@@ -512,18 +535,19 @@ class HeyTap:
         if self.login() == True:
             if self.getTaskList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runTaskCenter()                    # 运行任务中心
-            logger.info('*' * 40 + '\n')
+            notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
-def checkHT(string):
-    if len(re.findall(r'source_type=.*?;',string)) == 0:
-        logger.info('CK格式有误:可能缺少`source_type`字段')
+def checkHT(dic):
+    CK = dic['CK']
+    if len(re.findall(r'source_type=.*?;',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`source_type`字段")
         return False
-    if len(re.findall(r'TOKENSID=.*?;',string)) == 0:
-        logger.info('CK格式有误:可能缺少`TOKENSID`字段')
+    if len(re.findall(r'TOKENSID=.*?;',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`TOKENSID`字段")
         return False
-    if len(re.findall(r'app_param=.*?[;]?',string)) == 0:
-        logger.info('CK格式有误:可能缺少`app_param`字段')
+    if len(re.findall(r'app_param=.*?[;]?',CK)) == 0:
+        notify(f"{dic['user']}\tCK格式有误:可能缺少`app_param`字段")
         return False
     return True
 
@@ -543,10 +567,10 @@ def checkHT(string):
 # # 读取青龙CK
 # def getEnv(key):
 #     lists2 = []
-#     logger.info("尝试导入青龙面板CK...")
+#     notify("尝试导入青龙面板CK...")
 #     variable = os.environ.get(key)
 #     if variable == None:
-#         logger.info("青龙面板环境变量 TH_COOKIE 不存在！")
+#         notify("青龙面板环境变量 TH_COOKIE 不存在！")
 #     else:
 #         for each in variable.split('&'):
 #             result = transform(each)
@@ -559,7 +583,7 @@ def main(event, context):
     global lists
     for each in lists:
         if all(each.values()):
-            if checkHT(each['CK']):
+            if checkHT(each):
                 heyTap = HeyTap(each)
                 for count in range(3):
                     try:
@@ -567,12 +591,14 @@ def main(event, context):
                         heyTap.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        logger.info(f"{heyTap.dic['user']}\t请求失败，随机延迟后再次访问")
+                        notify(f"{heyTap.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    logger.info(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    notify(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
+    if not os.path.basename(__file__)[:-3] in notifyBlackList:
+        send('欢太任务中心',allMess)
 
 if __name__ == '__main__':
     main(None,None)
