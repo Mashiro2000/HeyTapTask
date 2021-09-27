@@ -42,7 +42,7 @@
 │  BattleForHeyTap.py   # 积分大作战(欢太)
 │  BattleForRealMe.py   # 积分大作战(真我)
 │  HT_config.py         # 欢太配置文件(推荐使用)
-│  sendNotify.py        # 欢太配信文件
+│  sendNotify.py        # 欢太配信文件(青龙已配备,无需额外下载)
 │  README.md            # 说明文档
 ```
 
