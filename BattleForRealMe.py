@@ -66,6 +66,15 @@ fileUrlList = [
 ]
 checkFile(fileUrlList)
 
+# 配置文件
+try:
+    from HT_config import notifyBlackList,accounts,text
+    logger.info(text)
+    lists = accounts
+except:
+    logger.info('更新配置文件或检测CK')
+    lists = []
+
 # 配信文件
 try:
     from sendNotify import send
@@ -82,15 +91,6 @@ def notify(content=None):
 
 # 日志录入时间
 notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
-
-# 配置文件
-try:
-    from HT_config import notifyBlackList,accounts,text
-    notify(text)
-    lists = accounts
-except:
-    notify('更新配置文件或检测CK')
-    lists = []
 
 class BattleForRealMe:
     def __init__(self,dic):
@@ -242,7 +242,7 @@ class BattleForRealMe:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览真我GT Neo2':
+            elif each['title'] == '浏览真我GT Neo2' or each['title'] == '浏览真我GT Neo2':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:

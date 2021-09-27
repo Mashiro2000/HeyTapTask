@@ -67,6 +67,15 @@ fileUrlList = [
 ]
 checkFile(fileUrlList)
 
+# 配置文件
+try:
+    from HT_config import notifyBlackList,accounts,text
+    logger.info(text)
+    lists = accounts
+except:
+    logger.info('更新配置文件或检测CK')
+    lists = []
+
 # 配信文件
 try:
     from sendNotify import send
@@ -83,15 +92,6 @@ def notify(content=None):
 
 # 日志录入时间
 notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
-
-# 配置文件
-try:
-    from HT_config import notifyBlackList,accounts,text
-    notify(text)
-    lists = accounts
-except:
-    notify('更新配置文件或检测CK')
-    lists = []
 
 class HeyTap:
     def __init__(self,dic):
