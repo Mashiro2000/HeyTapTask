@@ -90,7 +90,7 @@ def notify(content=None):
     logger.info(content)
 
 # 日志录入时间
-notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
+notify(f"任务:欢太积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
 class BattleForRealMe:
     def __init__(self,dic):
