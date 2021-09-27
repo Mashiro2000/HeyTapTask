@@ -35,7 +35,7 @@
 
 ## 文件说明
 ```text
-│  HeyTap.py            # 欢太商城任务中心
+│  TaskCenter.py        # 欢太商城任务中心
 │  TimingCash.py        # 欢太定时红包，建议配合定时系统
 │  DailyCash.py         # 每日现金任务
 │  CheckInEarly.py      # 欢太商城，早睡报名或打卡，建议配合定时系统
