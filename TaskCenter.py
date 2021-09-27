@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
 # @Author  : MashiroF
-# @File    : HeyTap.py
+# @File    : TaskCenter.py
 # @Software: PyCharm
 
 '''
@@ -93,7 +93,7 @@ def notify(content=None):
 # 日志录入时间
 notify(f"任务:{'任务中心'}\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
-class HeyTap:
+class TaskCenter:
     def __init__(self,dic):
         self.dic = dic
         self.sess = requests.session()
@@ -584,18 +584,18 @@ def main(event, context):
     for each in lists:
         if all(each.values()):
             if checkHT(each):
-                heyTap = HeyTap(each)
+                taskCenter = TaskCenter(each)
                 for count in range(3):
                     try:
                         time.sleep(random.randint(2,5))    # 随机延时
-                        heyTap.start()
+                        taskCenter.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        notify(f"{heyTap.dic['user']}\t请求失败，随机延迟后再次访问")
+                        notify(f"{taskCenter.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    notify(f"账号: {heyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    notify(f"账号: {taskCenter.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__)[:-3] in notifyBlackList:
         send('欢太任务中心',allMess)
