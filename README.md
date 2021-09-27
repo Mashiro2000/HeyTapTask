@@ -30,8 +30,8 @@
 * [x] 天天领现金定时红包(可能黑号)
 * [x] 早睡打卡
 * [x] 积分大作战(realme)
-* [x] 积分大作战(HeyTap) 由[@kuake0](https://github.com/kuake0)挖掘
-* [x] 配信功能 由[@curtinlv](https://github.com/curtinlv)开发
+* [x] 积分大作战(HeyTap) 由@kuake0挖掘
+* [x] 配信功能 由curtinlv开发
 
 ## 文件说明
 ```text
