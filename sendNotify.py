@@ -1,8 +1,8 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time    : 2021/9/27
+# @Time    : 2021/9/16
 # @Author  : MashiroF
-# @File    : sendNotify.py
+# @File    : BattleForRealMe.py
 # @Software: PyCharm
 
 import sys
@@ -31,7 +31,7 @@ DD_BOT_SECRET = ''          # 钉钉机器人的DD_BOT_SECRET; secrets可填
 QQ_SKEY = ''                # qq机器人的QQ_SKEY; secrets可填
 QQ_MODE = ''                # qq机器人的QQ_MODE; secrets可填
 QYWX_AM = ''                # 企业微信
-PUSH_PLUS_TOKEN = ''        # 微信推送Plus+
+PUSH_PLUS_TOKEN = '5ba9cc440db5434d8bfd3902952501c7'        # 微信推送Plus+
 
 notify_mode = []
 

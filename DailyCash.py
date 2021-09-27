@@ -404,7 +404,6 @@ def main(event, context):
                     notify(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__)[:-3] in notifyBlackList:
-        notify('欢太项目:https://github.com/Mashiro2000/HeyTapTask')
         send('欢太每日现金',allMess)
 
 if __name__ == '__main__':
