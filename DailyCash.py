@@ -403,7 +403,7 @@ def main(event, context):
                 else:
                     notify(f"账号: {dailyCash.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
-    if not os.path.basename(__file__)[:-3] in notifyBlackList:
+    if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('欢太每日现金',allMess)
 
 if __name__ == '__main__':
