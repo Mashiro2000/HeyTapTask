@@ -1,4 +1,5 @@
 # <p align="center">HeyTapTask</p>
+<p align="center">青龙面板配置暂时有问题，正在修复</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
 ## 免责声明
