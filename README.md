@@ -14,8 +14,6 @@
 
 > 您使用或者复制了本仓库且本人制作的任何脚本，则视为`已接受`此声明，请仔细阅读
 
-
-
 ## 环境
 
 [Python3](https://www.python.org/) >= 3.6.8
@@ -89,6 +87,10 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 ##### 变量获取
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
+
+####其他帮助
+- Q:NameError: name '`notifyBlackList`' is not defined
+- A:配置文件 `HT_config.py` 任意位置添加 `notifyBlackList = []`，这算是个遗留bug，抱歉
 
 #### 更新日志
 <details>
