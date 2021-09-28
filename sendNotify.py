@@ -26,7 +26,7 @@ TG_USER_ID = ''             # tg机器人的TG_USER_ID; secrets可填 1434078534
 TG_API_HOST=''              # tg 代理api
 TG_PROXY_IP = ''            # tg机器人的TG_PROXY_IP; secrets可填
 TG_PROXY_PORT = ''          # tg机器人的TG_PROXY_PORT; secrets可填
-DD_BOT_TOKEN = ''           # 钉钉机器人的DD_BOT_ACCESS_TOKEN; secrets可填
+DD_BOT_TOKEN = ''           # 钉钉机器人的DD_BOT_TOKEN; secrets可填
 DD_BOT_SECRET = ''          # 钉钉机器人的DD_BOT_SECRET; secrets可填
 QQ_SKEY = ''                # qq机器人的QQ_SKEY; secrets可填
 QQ_MODE = ''                # qq机器人的QQ_MODE; secrets可填
@@ -47,8 +47,8 @@ if "TG_BOT_TOKEN" in os.environ and os.environ["TG_BOT_TOKEN"] and "TG_USER_ID" 
     TG_USER_ID = os.environ["TG_USER_ID"]
 if "TG_API_HOST" in os.environ and os.environ["TG_API_HOST"]:
     TG_API_HOST = os.environ["TG_API_HOST"]
-if "DD_BOT_ACCESS_TOKEN" in os.environ and os.environ["DD_BOT_ACCESS_TOKEN"] and "DD_BOT_SECRET" in os.environ and os.environ["DD_BOT_SECRET"]:
-    DD_BOT_ACCESS_TOKEN = os.environ["DD_BOT_ACCESS_TOKEN"]
+if "DD_BOT_TOKEN" in os.environ and os.environ["DD_BOT_TOKEN"] and "DD_BOT_SECRET" in os.environ and os.environ["DD_BOT_SECRET"]:
+    DD_BOT_ACCESS_TOKEN = os.environ["DD_BOT_TOKEN"]
     DD_BOT_SECRET = os.environ["DD_BOT_SECRET"]
 if "QQ_SKEY" in os.environ and os.environ["QQ_SKEY"] and "QQ_MODE" in os.environ and os.environ["QQ_MODE"]:
     QQ_SKEY = os.environ["QQ_SKEY"]
@@ -73,7 +73,7 @@ if SCKEY:
 if TG_BOT_TOKEN and TG_USER_ID:
     notify_mode.append('telegram_bot')
     # print("Telegram 推送打开")
-if DD_BOT_ACCESS_TOKEN and DD_BOT_SECRET:
+if DD_BOT_TOKEN and DD_BOT_SECRET:
     notify_mode.append('dingding_bot')
     # print("钉钉机器人 推送打开")
 if QQ_SKEY and QQ_MODE:
@@ -169,7 +169,7 @@ def dingding_bot(title, content):
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))  # 签名
     print('开始使用 钉钉机器人 推送消息...', end='')
-    url = f'https://oapi.dingtalk.com/robot/send?access_token={DD_BOT_ACCESS_TOKEN}&timestamp={timestamp}&sign={sign}'
+    url = f'https://oapi.dingtalk.com/robot/send?access_token={DD_BOT_TOKEN}&timestamp={timestamp}&sign={sign}'
     headers = {'Content-Type': 'application/json;charset=utf-8'}
     data = {
         'msgtype': 'text',
@@ -325,7 +325,7 @@ def send(title, content):
                 print('未启用 Server酱')
             continue
         elif i == 'dingding_bot':
-            if DD_BOT_ACCESS_TOKEN and DD_BOT_SECRET:
+            if DD_BOT_TOKEN and DD_BOT_SECRET:
                 dingding_bot(title=title, content=content)
             else:
                 print('未启用 钉钉机器人')
