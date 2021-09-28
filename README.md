@@ -89,3 +89,10 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 ##### 变量获取
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
+
+## 更新日志
+<details>
+<summary> </summary>
+ 
+> 只记录大的更新，小修小改不记录。
+</details>
