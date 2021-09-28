@@ -90,7 +90,7 @@ def notify(content=None):
     logger.info(content)
 
 # 日志录入时间
-notify(f"任务:欢太积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
+notify(f"任务:RealMe积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
 class BattleForRealMe:
     def __init__(self,dic):
@@ -324,7 +324,7 @@ def main(event, context):
                     notify(f"账号: {battleForRealMe.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__)[:-3] in notifyBlackList:
-        send('realme积分大乱斗',allMess)
+        send('RealMe积分大乱斗',allMess)
 
 if __name__ == '__main__':
     main(None,None)
