@@ -1,5 +1,4 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">青龙面板配置暂时有问题，正在修复</P>
 <p align="center">开坑:检测json是否错误，目前报错的原因多为json格式有误</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
