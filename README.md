@@ -94,5 +94,5 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 <details>
 <summary> </summary>
  
-> 只记录大的更新，小修小改不记录。
+> 证明该项目还处于活跃期
 </details>
