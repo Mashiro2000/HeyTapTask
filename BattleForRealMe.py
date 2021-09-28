@@ -7,7 +7,7 @@
 
 '''
 cron:  40 5,12 * * * BattleForRealMe.py
-new Env('欢太积分大乱斗');
+new Env('RealMe积分大乱斗');
 '''
 
 import os
