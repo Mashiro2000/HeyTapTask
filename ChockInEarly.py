@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/12
 # @Author  : MashiroF
-# @File    : CheckInEarly.py
+# @File    : ChockInEarly.py
 # @Software: PyCharm
 
 '''
