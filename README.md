@@ -36,13 +36,14 @@
 ## 文件说明
 ```text
 │  TaskCenter.py        # 欢太商城任务中心
-│  TimingCash.py        # 欢太定时红包，建议配合定时系统
+│  TimingCash.py        # 欢太定时红包
 │  DailyCash.py         # 每日现金任务
-│  ChockInEarly.py      # 欢太商城，早睡报名或打卡，建议配合定时系统
+│  ChockInEarly.py      # 欢太商城，早睡报名或打卡
 │  BattleForHeyTap.py   # 积分大作战(欢太)
 │  BattleForRealMe.py   # 积分大作战(真我)
+│  HT_account.py        # 欢太CK文件
 │  HT_config.py         # 欢太配置文件(推荐使用)
-│  sendNotify.py        # 欢太配信文件(青龙已配备,无需额外下载)
+│  sendNotify.py        # 欢太配信文件(强制下载本项目配信文件,配信方式较全)
 │  README.md            # 说明文档
 ```
 
@@ -56,7 +57,7 @@ git clone https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git   # 
 
 cd HeyTapTask
 
-vi Ht_account.py
+vi HT_account.py
 ```
 
 #### 二、青龙面板拉库指令
@@ -97,6 +98,9 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 #### 其他帮助
 - Q:NameError: name '`xxxxxx`' is not defined
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
+- 
+- Q:环境变量如何使用?
+- A:参考格式:`export notifyBlack="TimingCash&DailyCash"`、`export Lottery="true"`
 
 
 #### 更新日志
