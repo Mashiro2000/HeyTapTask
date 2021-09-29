@@ -162,7 +162,7 @@ def dingding_bot(title, content):
     string_to_sign_enc = string_to_sign.encode('utf-8')
     hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
     sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))  # 签名
-    print('开始使用 钉钉机器人 推送消息...', end='')
+    print('钉钉机器人服务启动')
     url = f'https://oapi.dingtalk.com/robot/send?access_token={DD_BOT_TOKEN}&timestamp={timestamp}&sign={sign}'
     headers = {'Content-Type': 'application/json;charset=utf-8'}
     data = {
@@ -268,6 +268,7 @@ def wecom_app(title, content):
             message = title + '\n\n' + content
             response = wx.send_text(message, touser)
         else:
+            print('企业微信服务启动')
             response = wx.send_mpnews(title, content, media_id, touser)
         if response == 'ok':
             print('推送成功！')
