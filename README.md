@@ -1,5 +1,5 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">开坑:检测json是否错误，目前报错的原因多为json格式有误.</P>
+<p align="center">目前代码已完成重构建！！！请重新下载或者拉取</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
 ## 免责声明
@@ -61,8 +61,12 @@ vi Ht_config.py
 
 #### 二、青龙面板拉库指令
 ```text
-ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_config|sendNotify" "sendNotify"                        # 国外机
-ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT_config|sendNotify" "sendNotify"    # 国内机(谢谢大佬的代理)
+旧版本升级新版 先备份CK数据
+第一次拉取
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_.*|sendNotify"
+
+第二次拉取，确保HT_config.py不被覆盖，更改拉库命令，命令如下
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_account"
 注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
 ```
 
