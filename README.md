@@ -91,8 +91,8 @@ ql repo https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git "" "HT
 
 #### 其他帮助
 - Q:NameError: name '`notifyBlackList`' is not defined
-- A:1.配置文件 `HT_config.py` 任意位置添加 `notifyBlackList = []`，这算是个遗留bug，抱歉
-- A:2.也有可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
+- A:配置文件 `HT_config.py` 任意位置添加 `notifyBlackList = []`，这算是个遗留bug，抱歉
+- A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
 
 #### 更新日志
 <details>
