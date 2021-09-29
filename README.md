@@ -99,11 +99,13 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 - A:配置文件 `HT_config.py` 任意位置添加 `notifyBlackList = []`，这算是个遗留bug，抱歉
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
 
+
 #### 更新日志
 <details>
 <summary> </summary>
  
 > 只记录大的更新，小修小改不记录。
+
 2021-9-29
 重构代码,确保后续更新不在涉及`HT_config.py`文件新增环境变量`notifyBlack`和`Lottery`
 `notifyBlack`   限制某个脚本配信功能,多个以&隔开
