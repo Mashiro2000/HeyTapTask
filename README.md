@@ -82,7 +82,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 
 ##### 编辑配置文件(本地/青龙/云函数)
 ```text
-# 推荐方案(HT_config.py)
+# 推荐方案(HT_account.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
     'CK':'source_type=xxx;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴,且顺序不可乱
@@ -95,7 +95,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
 
 #### 其他帮助
-- Q:NameError: name '`notifyBlackList`' is not defined
+- Q:NameError: name '`xxxxxx`' is not defined
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
 
 
