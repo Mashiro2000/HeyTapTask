@@ -102,11 +102,10 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 #### 更新日志
 <details>
 <summary> </summary>
+
 > 证明该项目还处于活跃期
 2021-9-29
-    text```
-    重构代码,确保后续更新不在涉及`HT_config.py`文件新增环境变量`notifyBlack`和`Lottery`
-    `notifyBlack`   限制某个脚本配信功能,多个以&隔开
-    `Lottery`       设定赚积分是否自动抽取,有用户提议自己抽取,几率较大
-    ```
+重构代码,确保后续更新不在涉及`HT_config.py`文件新增环境变量`notifyBlack`和`Lottery`
+`notifyBlack`   限制某个脚本配信功能,多个以&隔开
+`Lottery`       设定赚积分是否自动抽取,有用户提议自己抽取,几率较大
 </details>
