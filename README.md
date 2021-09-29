@@ -67,12 +67,12 @@ vi Ht_config.py
 ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_.*|sendNotify"
 
 第二次拉取，确保HT_config.py不被覆盖，更改拉库命令，命令如下
-ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_account"
-注:该命令不包含配置文件HT_config.py,请手动运行任一脚本进行下载!
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_config|sendNotify"
 ```
 
 #### 三、云函数
-[部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
+重构前 -> [部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
+重构后 -> 待更新
 
 ##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
@@ -96,7 +96,6 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 
 #### 其他帮助
 - Q:NameError: name '`notifyBlackList`' is not defined
-- A:配置文件 `HT_config.py` 任意位置添加 `notifyBlackList = []`，这算是个遗留bug，抱歉
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
 
 
@@ -104,9 +103,9 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 <details>
 <summary> </summary>
  
-> 只记录大的更新，小修小改不记录。
+> 证明该项目仍然存活
 
 2021-9-29
-重构代码,确保后续更新不在涉及`HT_config.py`文件 新增环境变量`notifyBlack`和`Lottery`
+重构代码,确保后续更新不在涉及`HT_config.py`文件，新增环境变量`notifyBlack`和`Lottery`
 
 </details>
