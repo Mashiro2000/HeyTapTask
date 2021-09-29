@@ -71,8 +71,8 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT_.*|sendNotify" "HT_
 ```
 
 #### 三、云函数
-重构前 -> [部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
-重构后 -> 待更新
+- 重构前 -> [部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
+- 重构后 -> 待更新
 
 ##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
