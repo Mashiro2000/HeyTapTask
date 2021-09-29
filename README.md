@@ -56,7 +56,7 @@ git clone https://ghproxy.com/https://github.com/Mashiro2000/HeyTapTask.git   # 
 
 cd HeyTapTask
 
-vi Ht_config.py
+vi Ht_account.py
 ```
 
 #### 二、青龙面板拉库指令
