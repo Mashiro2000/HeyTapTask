@@ -1,5 +1,5 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">近期代码将进行重构，其目的是为了更好的用户体验，届时请大家重新下载或使用新的拉取命令</P>
+<p align="center">开坑:检测json是否错误，目前报错的原因多为json格式有误.</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
 ## 免责声明

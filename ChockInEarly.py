@@ -15,84 +15,35 @@ import re
 import sys
 import time
 import random
-import logging
-
-# 日志模块
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logFormat = logging.Formatter("%(message)s")
-
-# 日志模块
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logFormat = logging.Formatter("%(message)s")
-
-# 日志输出流
-stream = logging.StreamHandler()
-stream.setFormatter(logFormat)
-logger.addHandler(stream)
-
-# 第三方库
-try:
-    import requests
-except ModuleNotFoundError:
-    logger.info("缺少requests依赖！程序将尝试安装依赖！")
-    os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
-    os.execl(sys.executable, 'python3', __file__, *sys.argv)
-
-# 检测配置文件并下载(云函数可能不适用)
-def checkFile(urlList):
-    exitFlag = False
-    for url in urlList:
-        fileName = url.split('/')[-1]
-        fileUrl = f'https://ghproxy.com/{url}'
-        try:
-            if not os.path.exists(fileName):
-                exitFlag = True
-                logger.info(f"`{fileName}`不存在,尝试进行下载...")
-                content = requests.get(url=fileUrl).content.decode('utf-8')
-                with open(file=fileName, mode='w', encoding='utf-8') as fc:
-                    fc.write(content)
-        except:
-            logger.info(f'请手动下载配置文件`{fileName[:-3]}`到 {os.path.dirname(os.path.abspath(__file__))}')
-            logger.info(f'下载地址:{fileUrl}\n')
-    if os.path.exists('/ql/config/auth.json'):
-        # 判断环境，青龙面板则提示
-        logger.info(f"CK配置 -> 脚本管理 -> 搜索`HT_config`关键字 -> 编辑\n")
-    if exitFlag ==True:
-        # 发生下载行为,应退出程序，编辑配置文件
-        time.sleep(3)
-        sys.exit(0)
-
-# 检测必备文件
-fileUrlList = [
-    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/sendNotify.py',
-    'https://raw.githubusercontent.com/Mashiro2000/HeyTapTask/main/HT_config.py'
-]
-checkFile(fileUrlList)
+import requests
 
 # 配置文件
 try:
-    from HT_config import notifyBlackList,accounts,text
-    logger.info(text)
-    lists = accounts
-except:
-    logger.info('更新配置文件或检测CK')
-    lists = []
+    from HT_config import allMess,downFlag,notifyBlackList,isLottery,logger,notify
+except Exception as error:
+    logger.info('近期代码发生重构,请前往 https://github.com/Mashiro2000/HeyTapTask 查看更新')
+    logger.info(f'失败原因:{error}')
+    sys.exit(0)
+
+# 判断是否发生下载行为
+if downFlag == True:
+    logger.info('发生下载行为,应退出程序，编辑配置文件')
+    sys.exit(0)
 
 # 配信文件
 try:
     from sendNotify import send
-except:
+except Exception as error:
     logger.info('推送文件有误')
-finally:
-    allMess = ''
+    logger.info(f'失败原因:{error}')
+    sys.exit(0)
 
-# 配信内容格式化
-def notify(content=None):
-    global allMess
-    allMess = allMess + content + '\n'
-    logger.info(content)
+# 导入账户
+try:
+    from HT_account import accounts
+    lists = accounts
+except:
+    lists = []
 
 # 日志录入时间
 notify(f"任务:欢太早睡打卡\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
@@ -204,7 +155,7 @@ def checkHT(dic):
 #     return lists2
 
 # 兼容云函数
-def main(event, context):
+def main_handler(event, context):
     global lists
     for each in lists:
         if all(each.values()):
@@ -226,4 +177,4 @@ def main(event, context):
         send('欢太早睡打卡',allMess)
 
 if __name__ == '__main__':
-    main(None,None)
+    main_handler(None,None)
