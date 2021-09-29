@@ -1,5 +1,5 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">目前代码已完成重构建！！！请重新下载或者拉取</P>
+<p align="center">目前代码已完成重构建！请重新下载或者拉取,配信功能存在bug，后续修复</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
 ## 免责声明
@@ -110,6 +110,6 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 > 证明该项目仍然存活
 
 2021-9-29
-重构代码,确保后续更新不在涉及`HT_config.py`文件，新增环境变量`notifyBlack`和`Lottery`
+重构代码,确保后续更新不在涉及`HT_account.py`文件，新增环境变量`notifyBlack`和`Lottery`
 
 </details>
