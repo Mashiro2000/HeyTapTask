@@ -240,36 +240,36 @@ class TaskCenter:
             self.cashingCredits(self.shareData['name'],self.shareData['marking'], self.shareData['type'],self.shareData['credits'])
 
 
-#     # 浏览推送任务
-#     def runViewPush(self):
-#         if self.pushData['completeStatus'] == 0:
-#             self.viewPush(self.pushData['times'] - self.pushData['readCount'])
-#         elif self.pushData['completeStatus'] == 1:
-#             self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
-#         elif self.pushData['completeStatus'] == 2:
-#             notify(f"[{self.pushData['name']}]\t已完成，奖励已领取")
-#             time.sleep(random.randint(1,3))
+    #     # 浏览推送任务
+    #     def runViewPush(self):
+    #         if self.pushData['completeStatus'] == 0:
+    #             self.viewPush(self.pushData['times'] - self.pushData['readCount'])
+    #         elif self.pushData['completeStatus'] == 1:
+    #             self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
+    #         elif self.pushData['completeStatus'] == 2:
+    #             notify(f"[{self.pushData['name']}]\t已完成，奖励已领取")
+    #             time.sleep(random.randint(1,3))
 
-#     # 点击推送
-#     def viewPush(self,count):
-#         url = 'https://msec.opposhop.cn/users/vi/creditsTask/pushTask'
-#         headers = {
-#             'clientPackage': 'com.oppo.store',
-#             'Host': 'msec.opposhop.cn',
-#             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-#             'Content-Type': 'application/x-www-form-urlencoded',
-#             'Connection': 'keep-alive',
-#             'User-Agent': 'okhttp/3.12.12.200sp1',
-#             'Accept-Encoding': 'gzip',
-#         }
-#         params = {
-#             'marking': 'daily_viewpush'
-#         }
-#         for i in range(count + random.randint(1,3)):
-#             self.sess.get(url=url,headers=headers,params=params)
-#             notify(f"正在点击第{i+1}次信息推送...")
-#             time.sleep(random.randint(7,10))
-#         self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
+    #     # 点击推送
+    #     def viewPush(self,count):
+    #         url = 'https://msec.opposhop.cn/users/vi/creditsTask/pushTask'
+    #         headers = {
+    #             'clientPackage': 'com.oppo.store',
+    #             'Host': 'msec.opposhop.cn',
+    #             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    #             'Content-Type': 'application/x-www-form-urlencoded',
+    #             'Connection': 'keep-alive',
+    #             'User-Agent': 'okhttp/3.12.12.200sp1',
+    #             'Accept-Encoding': 'gzip',
+    #         }
+    #         params = {
+    #             'marking': 'daily_viewpush'
+    #         }
+    #         for i in range(count + random.randint(1,3)):
+    #             self.sess.get(url=url,headers=headers,params=params)
+    #             notify(f"正在点击第{i+1}次信息推送...")
+    #             time.sleep(random.randint(7,10))
+    #         self.cashingCredits(self.pushData['name'], self.pushData['marking'], self.pushData['type'],self.pushData['credits'])
 
     # 领取奖励
     def cashingCredits(self,name,marking,type,amount):
@@ -328,11 +328,11 @@ class TaskCenter:
                 self.earnPoint()
             else:
                 notify("[赚积分]\t已完成，奖励已领取")
+                self.earnPointLottery()
         time.sleep(random.randint(1,3))
 
     # 赚积分(抽奖)
     def earnPoint(self):
-        self.sum = 0
         for each in self.total:
             if each['title'] == '每日签到':
                 if each['t_status'] == 0:
@@ -397,7 +397,6 @@ class TaskCenter:
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
             notify(f"{dic['title']}\t领取抽奖次数成功")
-            self.sum = self.sum + int(dic['number'])
         else:
             notify(f"{dic['title']}\t领取抽奖次数失败")
 
@@ -417,9 +416,17 @@ class TaskCenter:
             }
             data = {
                 'aid':1418,
-                'lid':1307
+                'lid':1307,
+                'mobile':'',
+                'authcode':'',
+                'captcha':'',
+                'isCheck':0,
+                'source_type':501,
+                's_channel':'oppo_appstore',
+                'sku':'',
+                'spu':''
             }
-            for index in range(self.sum):
+            for index in range(3):
                 response = self.sess.post(url=url,headers=headers,data=data).json()
                 if response['no'] == '0':
                     if response['data']['goods_name']:
@@ -431,6 +438,8 @@ class TaskCenter:
                     break
                 else:
                     notify(f"赚积分转盘\t抽奖失败:{response}")
+                    break
+                time.sleep(random.randint(3,5))
         else:
             notify(f"赚积分转盘\t取消抽奖")
         time.sleep(random.randint(1,3))
@@ -457,6 +466,7 @@ class TaskCenter:
                 'captcha':'',
                 'isCheck':0,
                 'source_type':501,
+                's_channel':'oppo_appstore',
                 'sku':'',
                 'spu':''
             }
@@ -472,7 +482,8 @@ class TaskCenter:
                     break
                 else:
                     notify(f"翻倍转盘\t抽奖失败:{response}")
-                time.sleep(random.randint(1,3))
+                    break
+                time.sleep(random.randint(3,5))
         else:
             notify(f"翻倍转盘\t取消抽奖")
 
