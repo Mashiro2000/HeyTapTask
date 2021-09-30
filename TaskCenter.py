@@ -417,14 +417,7 @@ class TaskCenter:
             }
             data = {
                 'aid':1418,
-                'lid':1307,
-                'mobile':'',
-                'authcode':'',
-                'captcha':'',
-                'isCheck':0,
-                'source_type':501,
-                'sku':'',
-                'spu':''
+                'lid':1307
             }
             for index in range(self.sum):
                 response = self.sess.post(url=url,headers=headers,data=data).json()
