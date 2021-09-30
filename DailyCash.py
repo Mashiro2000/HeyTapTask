@@ -19,7 +19,7 @@ import requests
 
 # 配置文件
 try:
-    from HT_config import allMess,downFlag,notifyBlackList,isLottery,logger,notify
+    from HT_config import downFlag,notifyBlackList,isLottery,logger
 except Exception as error:
     logger.info('近期代码发生重构,请前往 https://github.com/Mashiro2000/HeyTapTask 查看更新')
     logger.info(f'失败原因:{error}')
