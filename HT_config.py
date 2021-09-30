@@ -13,7 +13,7 @@ notifyBlackList = ['TimingCash','']
 
 
 # 是否执行转盘抽奖(默认抽奖)
-# 参数:true/false
+# 参数:true
 # 环境变量名:Lottery
 isLottery = 'true'
 
@@ -30,7 +30,6 @@ import logging
 
 # 全局变量
 downFlag = False        # 下载标志
-allMess = ''
 Lottery = None
 notifyBlack = None
 
@@ -64,12 +63,6 @@ except ModuleNotFoundError:
     logger.info("缺少requests依赖！程序将尝试安装依赖！")
     os.system("pip3 install requests -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
-
-# 配信内容格式化
-def notify(content=None):
-    global allMess
-    allMess = allMess + content + '\n'
-    logger.info(content)
 
 # 检测配置文件并下载函数
 # Ps:云函数可能不适用,该函数语法不够优雅,希望大佬给个优雅方案

@@ -19,7 +19,7 @@ import requests
 
 # 配置文件
 try:
-    from HT_config import allMess,downFlag,notifyBlackList,isLottery,logger,notify
+    from HT_config import downFlag,notifyBlackList,isLottery,logger
 except Exception as error:
     logger.info('近期代码发生重构,请前往 https://github.com/Mashiro2000/HeyTapTask 查看更新')
     logger.info(f'失败原因:{error}')
@@ -45,8 +45,15 @@ try:
 except:
     lists = []
 
+# 配信内容格式
+allMess = ''
+def notify(content=None):
+    global allMess
+    allMess = allMess + content + '\n'
+    logger.info(content)
+
 # 日志录入时间
-notify(f"任务:欢太积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
+notify(f"任务:欢太任务中心\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
 # 欢太任务中心类
 class TaskCenter:

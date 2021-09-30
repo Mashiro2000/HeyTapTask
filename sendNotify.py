@@ -33,7 +33,7 @@ QQ_SKEY = ''                # qq机器人的QQ_SKEY; secrets可填
 QQ_MODE = ''                # qq机器人的QQ_MODE; secrets可填
 QYWX_AM = ''                # 企业微信
 QYWX_KEY = ''               # 企业机器人
-PUSH_PLUS_TOKEN = ''        # 微信推送Plus+
+PUSH_PLUS_TOKEN = 'c44877dccde545a0a6d931f135c31b16'        # 微信推送Plus+
 
 notify_mode = []
 

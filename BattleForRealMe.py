@@ -45,6 +45,13 @@ try:
 except:
     lists = []
 
+# 配信内容格式
+allMess = ''
+def notify(content=None):
+    global allMess
+    allMess = allMess + content + '\n'
+    logger.info(content)
+
 # 日志录入时间
 notify(f"任务:RealMe积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
