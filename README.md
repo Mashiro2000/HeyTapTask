@@ -67,7 +67,7 @@ vi HT_account.py
 第一次拉取
 ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT.*|sendNotify"
 
-第二次拉取，确保HT_config.py不被覆盖，更改拉库命令，命令如下
+第二次拉取，确保HT_account.py不被覆盖，更改拉库命令，命令如下
 ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_config|sendNotify"
 ```
 
