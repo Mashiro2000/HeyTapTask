@@ -18,7 +18,7 @@
 
 ## 环境
 
-[Python3](https://www.python.org/) >= 3.6.8
+[Python3](https://www.python.org/) >= 3.6
 
 ## 已实现功能
 * [x] 每日签到
