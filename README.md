@@ -111,6 +111,6 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 > 证明该项目仍然存活
 
 2021-9-29
-重构代码,确保后续更新不在涉及`HT_account.py`文件，新增环境变量`notifyBlack`和`Lottery`
+重构代码,确保后续更新不在涉及`HT_account.py`文件，新增环境变量`notifyBlack`
 
 </details>
