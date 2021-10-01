@@ -24,14 +24,7 @@ import logging
 
 # 全局变量
 downFlag = False        # 下载标志
-Lottery = None
 notifyBlack = None
-
-# 读取通知黑名单以及转盘抽奖环境变量
-if "Lottery" in os.environ:
-    Lottery = os.environ["Lottery"]
-if "notifyBlack" in os.environ:
-    notifyBlack = os.environ["notifyBlack"]
 
 # 如果存在环境变量,则替换配置参数
 if Lottery:
