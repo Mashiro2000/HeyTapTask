@@ -101,7 +101,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
 
 - Q:环境变量如何使用?
-- A:参考格式:`export notifyBlack="TimingCash&DailyCash"`、`export Lottery="true"`
+- A:参考格式:`export notifyBlack="TimingCash&DailyCash"`
 
 
 #### 更新日志
