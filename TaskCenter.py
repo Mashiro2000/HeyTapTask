@@ -19,7 +19,7 @@ import requests
 
 # 配置文件
 try:
-    from HT_config import downFlag,notifyBlackList,isLottery,logger
+    from HT_config import downFlag,notifyBlackList,logger
 except Exception as error:
     logger.info('近期代码发生重构,请前往 https://github.com/Mashiro2000/HeyTapTask 查看更新')
     logger.info(f'失败原因:{error}')
@@ -106,10 +106,10 @@ class TaskCenter:
 
     # 每日签到
     # 位置: APP → 我的 → 签到
-    def clockIn(self):
+    def signIn(self):
         self.dailyTask()            # 获取签到和每日任务的数据
-        if self.clockInData['status'] == 0 :
-            for each in self.clockInData['gifts']:
+        if self.signInData['status'] == 0 :
+            for each in self.signInData['gifts']:
                 if each['today'] == True:
                     url = 'https://store.oppo.com/cn/oapi/credits/web/report/immediately'
                     headers = {
@@ -138,7 +138,7 @@ class TaskCenter:
                         else:
                             notify(f"{self.dic['user']}\t签到结果:{response['errorMessage']}")
                             break
-        elif self.clockInData['status'] == 1:
+        elif self.signInData['status'] == 1:
             notify(f"{self.dic['user']}\t今日已签到")
         else:
             notify(f"{self.dic['user']}\t未知错误")
@@ -164,7 +164,7 @@ class TaskCenter:
 
     # 整合每日浏览、分享、推送数据
     def dailyTask(self):
-        self.clockInData = self.taskData['userReportInfoForm']  # 签到数据源
+        self.signInData = self.taskData['userReportInfoForm']  # 签到数据源
         for eachTask in self.taskData['everydayList']:          # 每日任务数据源
             if eachTask['marking'] == 'daily_viewgoods':
                 self.viewData = eachTask
@@ -205,7 +205,7 @@ class TaskCenter:
             if flag == 1:       # 来源任务中心的浏览任务
                 self.cashingCredits(self.viewData['name'], self.viewData['marking'], self.viewData['type'],self.viewData['credits'])
             elif flag == 2:     # 来源赚积分的浏览任务
-                self.getLottery(dic)
+                self.receiveAward(dic)
 
     # 分享任务
     def runShareTask(self):
@@ -300,7 +300,6 @@ class TaskCenter:
     # 赚积分(抽奖)任务
     def runEarnPoint(self):
         aid = 1418  # 抓包结果为固定值:1418
-        self.total = []
         url = 'https://hd.oppo.com/task/list'
         headers = {
             'Host':'hd.oppo.com',
@@ -315,44 +314,25 @@ class TaskCenter:
         response = self.sess.get(url=url,headers=headers,params=params).json()
         if response['no'] == '200':
             for each in response['data']:
-                dic = {
-                    'title':each['title'],
-                    'aid': aid,
-                    't_index': each['t_index'],
-                    't_status': each['t_status'],
-                    'number': each['number']
-                }
-                if dic['t_status'] != 2:
-                    self.total.append(dic)
-            if len(self.total):
-                self.earnPoint()
-            else:
-                notify("[赚积分]\t已完成，奖励已领取")
-                self.earnPointLottery()
+                if each['title'] == '每日签到':
+                    if each['t_status'] == 0:
+                        self.clockIn(each)
+                    elif each['t_status'] == 1:
+                        self.receiveAward(each)
+                    elif each['t_status'] == 2:
+                        notify(f"[{each['title']}]\t任务完成")
+                elif each['title'] == '浏览商详':
+                    if each['t_status'] == 0:
+                        self.viewGoods(count=6,flag=2,dic=each)
+                    elif each['t_status'] == 1:
+                        self.receiveAward(each)
+                    elif each['t_status'] == 2:
+                        notify(f"[{each['title']}]\t任务完成")
         time.sleep(random.randint(1,3))
 
-    # 赚积分(抽奖)
-    def earnPoint(self):
-        for each in self.total:
-            if each['title'] == '每日签到':
-                if each['t_status'] == 0:
-                    self.signIn(each)
-                elif each['t_status'] == 1:
-                    self.getLottery(each)
-                elif each['t_status'] == 2:
-                    notify("每日任务\t抽奖次数已领取")
-            elif each['title'] == '浏览商详':
-                if each['t_status'] == 0:
-                    self.viewGoods(count=6,flag=2,dic=each)     # 调用浏览任务的函数，且抓包结果来看，固定6次
-                elif each['t_status'] == 1:
-                    self.getLottery(each)
-                elif each['t_status'] == 2:
-                    notify("浏览商详\t抽奖次数已领取")
-            time.sleep(random.randint(1,3))
-        self.earnPointLottery()
-
     # 赚积分 -> 每日打卡
-    def signIn(self,dic):
+    def clockIn(self,dic):
+        aid = 1418
         url = 'https://hd.oppo.com/task/finish'
         headers = {
             'Host': 'hd.oppo.com',
@@ -361,23 +341,25 @@ class TaskCenter:
             'Origin': 'https://hd.oppo.com',
             'X-Requested-With': 'XMLHttpRequest',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Referer': 'https://hd.oppo.com/act/m/2021/jifenzhuanpan/index.html?us=gerenzhongxin&um=hudongleyuan&uc=yingjifen',
+            'Referer': 'https://hd.oppo.com/act/m/2021/2021/realmejifendalu/index.html',
             'Accept-Encoding': 'gzip, deflate',
             'Accept-Language': 'zh-CN,en-US;q=0.9'
         }
         data = {
-            'aid': dic['aid'],
+            'aid': aid,
             't_index': dic['t_index']
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            notify(f"{dic['title']}\t签到成功")
-            self.getLottery(dic)
+            notify(f"[{dic['title']}]\t{response['msg']}")
+            self.receiveAward(dic)
         else:
-            notify(f"{dic['title']}\t签到失败")
+            notify(f"[{dic['title']}]\t{response['msg']}")
+            time.sleep(random.randint(3,5))
 
-    # 领取抽奖机会
-    def getLottery(self,dic):
+    # 领取奖励
+    def receiveAward(self,dic):
+        aid = 1418
         url = 'https://hd.oppo.com/task/award'
         headers = {
             'Host': 'hd.oppo.com',
@@ -391,111 +373,23 @@ class TaskCenter:
             'Accept-Language': 'zh-CN,en-US;q=0.9'
         }
         data = {
-            'aid': dic['aid'],
+            'aid': aid,
             't_index': dic['t_index']
         }
         response = self.sess.post(url=url,headers=headers,data=data).json()
         if response['no'] == '200':
-            notify(f"{dic['title']}\t领取抽奖次数成功")
+            notify(f"[{dic['title']}]\t{response['msg']}")
         else:
-            notify(f"{dic['title']}\t领取抽奖次数失败")
-
-    # 赚积分抽奖
-    def earnPointLottery(self):
-        if isLottery == 'true':
-            url = 'https://hd.oppo.com/platform/lottery'
-            headers = {
-                'Host': 'hd.oppo.com',
-                'Connection': 'keep-alive',
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Origin': 'https://hd.oppo.com',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Referer': 'https://hd.oppo.com/act/m/2021/jifenzhuanpan/index.html?us=gerenzhongxin&um=hudongleyuan&uc=yingjifen',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept-Language': 'zh-CN,en-US;q=0.9'
-            }
-            data = {
-                'aid':1418,
-                'lid':1307,
-                'mobile':'',
-                'authcode':'',
-                'captcha':'',
-                'isCheck':0,
-                'source_type':501,
-                's_channel':'oppo_appstore',
-                'sku':'',
-                'spu':''
-            }
-            for index in range(3):
-                response = self.sess.post(url=url,headers=headers,data=data).json()
-                if response['no'] == '0':
-                    if response['data']['goods_name']:
-                        notify(f"赚积分转盘\t抽奖结果:{response['data']['goods_name']}")
-                    else:
-                        notify(f"赚积分转盘\t抽奖结果:空气")
-                elif response['no'] == '-8':
-                    notify(f"赚积分转盘\t抽奖失败:{response['msg']}")
-                    break
-                else:
-                    notify(f"赚积分转盘\t抽奖失败:{response}")
-                    break
-                time.sleep(random.randint(3,5))
-        else:
-            notify(f"赚积分转盘\t取消抽奖")
+            notify(f"[{dic['title']}]\t{response['msg']}")
         time.sleep(random.randint(1,3))
-
-    # 天天积分翻倍
-    def doubledLottery(self):
-        if isLottery == 'true':
-            url = 'https://hd.oppo.com/platform/lottery'
-            headers = {
-                'Host': 'hd.oppo.com',
-                'Connection': 'keep-alive',
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Origin': 'https://hd.oppo.com',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Referer': 'https://hd.oppo.com/act/m/2019/jifenfanbei/index.html?us=qiandao&um=task',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept-Language': 'zh-CN,en-US;q=0.9'
-            }
-            data = {
-                'aid':675,
-                'lid':1289,
-                'mobile':'',
-                'authcode':'',
-                'captcha':'',
-                'isCheck':0,
-                'source_type':501,
-                's_channel':'oppo_appstore',
-                'sku':'',
-                'spu':''
-            }
-            for index in range(3):
-                response = self.sess.post(url=url,headers=headers,data=data).json()
-                if response['no'] == '0':
-                    if response['data']['goods_name']:
-                        notify(f"翻倍转盘\t抽奖结果:{response['data']['goods_name']}")
-                    else:
-                        notify(f"翻倍转盘\t抽奖结果:空气")
-                elif response['no'] == '-11':
-                    notify(f"翻倍转盘\t抽奖失败:{response['msg']}")
-                    break
-                else:
-                    notify(f"翻倍转盘\t抽奖失败:{response}")
-                    break
-                time.sleep(random.randint(3,5))
-        else:
-            notify(f"翻倍转盘\t取消抽奖")
 
     # 跑任务中心
     # 位置:我的 -> 任务中心
     def runTaskCenter(self):
-        self.clockIn()              # 签到打卡
+        self.signIn()              # 签到打卡
         self.runViewTask()          # 浏览任务
         self.runShareTask()         # 分享任务
         # self.runViewPush()          # 浏览推送任务(已下架)
-        self.runEarnPoint()         # 赚积分活动
-        # self.doubledLottery()       # 天天积分翻倍，基本上抽不中
 
     # 执行欢太商城实例对象
     def start(self):
@@ -523,33 +417,6 @@ def checkHT(dic):
         notify(f"{dic['user']}\tCK格式有误:可能缺少`app_param`字段")
         return False
     return True
-
-# # 格式化设备信息Json
-# # 由于青龙的特殊性,把CK中的 app_param 转换未非正常格式，故需要此函数
-# def transform(string):
-#     dic2 = {}
-#     dic1 = eval(string)
-#     for i in dic1['app_param'][1:-1].split(','):
-#         dic2[i.split(':')[0]] = i.split(':')[-1]
-#     if dic1['CK'][-1] != ';':
-#         dic1['CK'] = dic1['CK'] + ';'
-#     dic1['CK'] = dic1['CK'] + f"app_param={json.dumps(dic2,ensure_ascii=False)}"
-#     dic1['CK'] = checkHT(dic1['CK'])
-#     return dic1
-
-# # 读取青龙CK
-# def getEnv(key):
-#     lists2 = []
-#     notify("尝试导入青龙面板CK...")
-#     variable = os.environ.get(key)
-#     if variable == None:
-#         notify("青龙面板环境变量 TH_COOKIE 不存在！")
-#     else:
-#         for each in variable.split('&'):
-#             result = transform(each)
-#             if result:
-#                 lists2.append(result)
-#     return lists2
 
 # 兼容云函数
 def main_handler(event, context):
