@@ -9,7 +9,7 @@
 ![](https://s3.bmp.ovh/imgs/2021/09/d1b0ec0fd22130a2.png)
 
 ### 三、选择模板
-![](https://s3.bmp.ovh/imgs/2021/09/2e2aecf7ef575e7c.png)
+![](https://z3.ax1x.com/2021/10/02/4b4lhF.md.png)
 
 ### 四、复制源码
 ![](https://z3.ax1x.com/2021/09/24/4DdebT.png)
