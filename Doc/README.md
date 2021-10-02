@@ -15,7 +15,7 @@
 ![](https://z3.ax1x.com/2021/10/02/4b4wtO.png)
 
 ### 五、部署代码
-![](https://s3.bmp.ovh/imgs/2021/09/3cfb6e908f2551d5.png)
+![](https://z3.ax1x.com/2021/10/02/4b5CuR.png)
 
 ### 六、高级设置
 ![](https://s3.bmp.ovh/imgs/2021/09/3506ca64489e6d96.png)
