@@ -27,4 +27,4 @@
 ![](https://z3.ax1x.com/2021/10/02/4bI1y9.png)
 
 ### 九、解放双手
-![](https://s3.bmp.ovh/imgs/2021/09/0df8c72197590602.png)
+![](https://z3.ax1x.com/2021/10/02/4boD9U.png)
