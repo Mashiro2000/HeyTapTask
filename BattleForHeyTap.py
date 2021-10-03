@@ -4,7 +4,7 @@
 # @Author  : MashiroF
 # @File    : BattleForHeyTap.py
 # @Software: PyCharm
-
+1
 '''
 cron:  45 5,12 * * * BattleForHeyTap.py
 new Env('欢太积分大乱斗');
