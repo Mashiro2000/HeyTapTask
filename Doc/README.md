@@ -15,7 +15,7 @@
 ### 三、选择模板
 ![](https://z3.ax1x.com/2021/10/02/4b4lhF.png)
 
-[选择模板图片地址](https://z3.ax1x.com/2021/10/02/4b4lhF.png
+[选择模板图片地址](https://z3.ax1x.com/2021/10/02/4b4lhF.png)
 
 ### 四、复制源码
 ![](https://z3.ax1x.com/2021/10/02/4b4wtO.png)
