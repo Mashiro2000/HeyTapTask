@@ -1,5 +1,4 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">目前代码已完成重构建！请重新下载或者拉取.</P>
 <p align="center">建议各位本地运行</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
