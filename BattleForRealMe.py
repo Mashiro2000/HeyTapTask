@@ -150,7 +150,7 @@ class BattleForRealMe:
             self.receiveAward(dic)
         else:
             notify(f"[{dic['title']}]\t{response['msg']}")
-            time.sleep(random.randint(3,5))
+        time.sleep(random.randint(3,5))
 
     def getBattleList(self):
         aid = 1582  # 抓包结果为固定值:1582
