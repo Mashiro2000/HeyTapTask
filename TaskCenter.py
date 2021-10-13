@@ -316,9 +316,17 @@ class TaskCenter:
                 if each['title'] == '每日签到':
                     if each['t_status'] == 0:
                         self.clockIn(each)
+                    elif each['t_status'] == 1:
+                        self.receiveAward(each)
+                    elif each['t_status'] == 2:
+                        notify(f"[{each['title']}]\t任务完成")
                 elif each['title'] == '浏览商详':
                     if each['t_status'] == 0:
                         self.viewGoods(count=6,flag=2,dic=each)
+                    elif each['t_status'] == 1:
+                        self.receiveAward(each)
+                    elif each['t_status'] == 2:
+                        notify(f"[{each['title']}]\t任务完成")
         time.sleep(random.randint(1,3))
 
     # 赚积分 -> 每日打卡
