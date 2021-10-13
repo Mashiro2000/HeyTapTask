@@ -6,8 +6,8 @@
 # @Software: PyCharm
 
 '''
-cron:  16 5,12 * * * BattleForHeyTap2.py
-new Env('欢太积分大乱斗2');
+cron:  16 5,12 * * * otherTask.py
+new Env('欢太其它活动');
 '''
 
 import os
@@ -52,9 +52,9 @@ def notify(content=None):
     logger.info(content)
 
 # 日志录入时间
-notify(f"任务:欢太积分大乱斗2\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
+notify(f"任务:欢太其它活动\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
-class BattleForHeyTap2:
+class OtherTask:
     def __init__(self,dic):
         self.dic = dic
         self.sess = requests.session()
@@ -223,21 +223,21 @@ def main_handler(event, context):
     for each in lists:
         if all(each.values()):
             if checkHT(each):
-                battleForHeyTap2 = BattleForHeyTap2(each)
+                otherTask = OtherTask(each)
                 for count in range(3):
                     try:
                         time.sleep(random.randint(2,5))    # 随机延时
-                        battleForHeyTap2.start()
+                        otherTask.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        notify(f"{battleForHeyTap2.dic['user']}\t请求失败，随机延迟后再次访问")
+                        notify(f"{otherTask.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
                     notify(f"账号: {battleForHeyTap2.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
-        send('欢太积分大乱斗',allMess)
+        send('欢太其它活动',allMess)
 
 if __name__ == '__main__':
     main_handler(None,None)
