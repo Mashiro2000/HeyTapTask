@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 '''
-cron:  16 5,12 * * * CollectionCard.py
+cron:  46 5,12 * * * CollectionCard.py
 new Env('集卡赢套票');
 '''
 
