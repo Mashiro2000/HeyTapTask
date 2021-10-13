@@ -41,6 +41,7 @@
 │  ChockInEarly.py      # 欢太商城，早睡报名或打卡
 │  BattleForHeyTap.py   # 积分大作战(欢太)
 │  BattleForRealMe.py   # 积分大作战(真我)
+│  CollectionCard.py    # 集卡赢套件
 │  otherTask.py         # 其它活动(很多页面都有这个活动响应)
 │  HT_account.py        # 欢太CK文件
 │  HT_config.py         # 欢太配置文件(推荐使用)
