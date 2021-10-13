@@ -199,7 +199,6 @@ class CollectionCard:
 
     def runTaskList(self):
         for each in self.taskData:
-            print(each)
             if each['name'] == '每日打卡':
                 if each['status'] == 0:
                     self.runTask(dic=each)
