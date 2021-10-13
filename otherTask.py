@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/9/26
 # @Author  : MashiroF
-# @File    : BattleForHeyTap.py
+# @File    : otherTask.py
 # @Software: PyCharm
 
 '''
@@ -234,7 +234,7 @@ def main_handler(event, context):
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    notify(f"账号: {battleForHeyTap2.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    notify(f"账号: {otherTask.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('欢太其它活动',allMess)
