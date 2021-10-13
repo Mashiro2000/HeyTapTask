@@ -15,12 +15,13 @@ import re
 import sys
 import time
 import random
+import requests
 
 # 配置文件
 try:
     from HT_config import downFlag,notifyBlackList,logger
-    import requests
 except Exception as error:
+    logger.info('近期代码发生重构,请前往 https://github.com/Mashiro2000/HeyTapTask 查看更新')
     logger.info(f'失败原因:{error}')
     sys.exit(0)
 
@@ -180,7 +181,7 @@ class TaskCenter:
             self.cashingCredits(self.viewData['name'],self.viewData['marking'], self.viewData['type'],self.viewData['credits'])
         elif self.viewData['completeStatus'] == 2:
             notify(f"[{self.viewData['name']}]\t已完成，奖励已领取")
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,5))
 
 
     # 浏览商品
@@ -294,7 +295,7 @@ class TaskCenter:
             notify(f'{name}\t已领取奖励')
         else:
             notify(f'{name}\t领取失败')
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,5))
 
     # 赚积分(抽奖)任务
     def runEarnPoint(self):
@@ -327,7 +328,7 @@ class TaskCenter:
                         self.receiveAward(each)
                     elif each['t_status'] == 2:
                         notify(f"[{each['title']}]\t任务完成")
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,5))
 
     # 赚积分 -> 每日打卡
     def clockIn(self,dic):
@@ -380,7 +381,7 @@ class TaskCenter:
             notify(f"[{dic['title']}]\t{response['msg']}")
         else:
             notify(f"[{dic['title']}]\t{response['msg']}")
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,5))
 
     # 跑任务中心
     # 位置:我的 -> 任务中心
@@ -388,7 +389,7 @@ class TaskCenter:
         self.signIn()              # 签到打卡
         self.runViewTask()          # 浏览任务
         self.runShareTask()         # 分享任务
-        self.runEarnPoint()         # 赚积分任务(不抽卡)
+        self.runEarnPoint()         # 赚积分
         # self.runViewPush()          # 浏览推送任务(已下架)
 
     # 执行欢太商城实例对象
