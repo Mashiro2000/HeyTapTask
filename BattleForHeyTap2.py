@@ -1,13 +1,13 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time    : 2021/9/16
+# @Time    : 2021/9/26
 # @Author  : MashiroF
-# @File    : BattleForRealMe.py
+# @File    : BattleForHeyTap.py
 # @Software: PyCharm
 
 '''
-cron:  40 5,12 * * * BattleForRealMe.py
-new Env('RealMe积分大乱斗');
+cron:  16 5,12 * * * BattleForHeyTap2.py
+new Env('欢太积分大乱斗2');
 '''
 
 import os
@@ -52,9 +52,9 @@ def notify(content=None):
     logger.info(content)
 
 # 日志录入时间
-notify(f"任务:RealMe积分大乱斗\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
+notify(f"任务:欢太积分大乱斗2\n时间:{time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())}")
 
-class BattleForRealMe:
+class BattleForHeyTap2:
     def __init__(self,dic):
         self.dic = dic
         self.sess = requests.session()
@@ -79,7 +79,7 @@ class BattleForRealMe:
             return False
 
     def receiveAward(self,dic):
-        aid = 1582
+        aid = 1744
         url = 'https://hd.oppo.com/task/award'
         headers = {
             'Host': 'hd.oppo.com',
@@ -101,7 +101,7 @@ class BattleForRealMe:
             notify(f"[{dic['title']}]\t{response['msg']}")
         else:
             notify(f"[{dic['title']}]\t{response['msg']}")
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,5))
 
     def shareGoods(self,count=2,flag=None,dic=None):
         url = 'https://msec.opposhop.cn/users/vi/creditsTask/pushTask'
@@ -124,9 +124,9 @@ class BattleForRealMe:
         if flag == 1: #来源积分大乱斗
             self.receiveAward(dic=dic)
 
-    # # 直播,宠粉，浏览商品
+    # 直播,宠粉，浏览商品
     def runViewTask(self,dic=None):
-        aid = 1582
+        aid = 1744
         url = 'https://hd.oppo.com/task/finish'
         headers = {
             'Host': 'hd.oppo.com',
@@ -152,7 +152,7 @@ class BattleForRealMe:
         time.sleep(random.randint(3,5))
 
     def getBattleList(self):
-        aid = 1582  # 抓包结果为固定值:1582
+        aid = 1744  # 抓包结果为固定值:1744
         url = 'https://hd.oppo.com/task/list'
         headers = {
             'Host':'hd.oppo.com',
@@ -165,45 +165,24 @@ class BattleForRealMe:
             'aid':aid
         }
         response = self.sess.get(url=url,headers=headers,params=params).json()
-        time.sleep(random.randint(3,5))
         if response['no'] == '200':
             self.taskData = response['data']
             return True
         else:
             notify(f"{response['msg']}")
             return False
+        time.sleep(random.randint(1,3))
 
     def runBattleTask(self):
         for each in self.taskData:
-            if each['title'] == '分享商品':
+            if each['title'] == '浏览一加 9RT':
                 if each['t_status'] == 0:
-                    self.shareGoods(flag=1,count=2,dic=each)
+                    self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t领取成功")
-            elif each['title'] == '参与欢太超级宠粉':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '观看直播':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览realme专区':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览真我GT Neo2' or each['title'] == '预约真我GT Neo2':
+            elif each['title'] == '浏览一加 Buds Z2':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
@@ -244,21 +223,21 @@ def main_handler(event, context):
     for each in lists:
         if all(each.values()):
             if checkHT(each):
-                battleForRealMe = BattleForRealMe(each)
+                battleForHeyTap2 = BattleForHeyTap2(each)
                 for count in range(3):
                     try:
                         time.sleep(random.randint(2,5))    # 随机延时
-                        battleForRealMe.start()
+                        battleForHeyTap2.start()
                         break
                     except requests.exceptions.ConnectionError:
-                        notify(f"{battleForRealMe.dic['user']}\t请求失败，随机延迟后再次访问")
+                        notify(f"{battleForHeyTap2.dic['user']}\t请求失败，随机延迟后再次访问")
                         time.sleep(random.randint(2,5))
                         continue
                 else:
-                    notify(f"账号: {battleForRealMe.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
+                    notify(f"账号: {battleForHeyTap2.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
-        send('RealMe积分大乱斗',allMess)
+        send('欢太积分大乱斗',allMess)
 
 if __name__ == '__main__':
     main_handler(None,None)
