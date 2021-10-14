@@ -25,7 +25,7 @@
 * [x] 每日分享商品任务
 * [x] ~~每日点推送任务~~(已下架)
 * [x] 赚积分活动
-* [x] ~~天天积分翻倍(默认注释，基本抽不到)~~(暂时移除，后续整合)
+* [x] ~~天天积分翻倍~~(暂时移除，后续整合)
 * [x] 天天领现金任务列表
 * [x] 天天领现金定时红包
 * [x] 早睡打卡
@@ -45,7 +45,7 @@
 │  CollectionCard.py    # 集卡赢套件
 │  otherTask.py         # 其它活动(很多页面都有这个活动响应)
 │  HT_account.py        # 欢太CK文件
-│  HT_config.py         # 欢太配置文件(推荐使用)
+│  HT_config.py         # 欢太配置文件
 │  sendNotify.py        # 欢太配信文件(强制下载本项目配信文件,配信方式较全)
 │  README.md            # 说明文档
 ```
@@ -85,7 +85,6 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 
 ##### 编辑配置文件(本地/青龙/云函数)
 ```text
-# 推荐方案(HT_account.py)
 {
     'user':'',                                                  # 自定义备注(为了区分账号，包括未登录状态下)
     'CK':'source_type=xxx;TOKENSID=TOKEN_xxxx;app_param=xxxx',  # 用户环境变量 Cookie,建议全部粘贴,且顺序不可乱
