@@ -95,6 +95,9 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
 
+- 集卡活动缓存刷新?
+- 欢太商城 -> 首页 -> 右上角集卡(访问进去)
+
 #### 其他帮助
 - Q:NameError: name '`xxxxxx`' is not defined
 - A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
