@@ -95,7 +95,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_c
 - CK和UA信息需自行抓包，欢太商城 -> 我的 -> 任务中心 -> 领券中心
 - 抓包地址:`https://store.oppo.com/cn/oapi/users/web/checkPeople/isNewPeople`
 
-- 集卡活动缓存刷新?
+- 集卡活动提示信息更改，缓存已刷新?
 - 欢太商城 -> 首页 -> 右上角集卡(访问进去)
 
 #### 其他帮助
