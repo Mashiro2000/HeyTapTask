@@ -41,7 +41,8 @@ except Exception as error:
 try:
     from HT_account import accounts
     lists = accounts
-except:
+except Exception as error:
+    logger.info(f'失败原因:{error}')
     lists = []
 
 # 配信内容格式
