@@ -67,10 +67,10 @@ vi HT_account.py
 旧版本升级新版本,先备份CK数据
 
 第一次拉取
-ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT.*|sendNotify"
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|HT.*|sendNotify" "HT.*|sendNotify"
 
 拉取完成后，修改拉库指令，确保HT_account.py不被覆盖，更改拉库命令，命令如下
-ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "HT.*|sendNotify" "HT_config"
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|HT.*|sendNotify" "HT_config"
 ```
 
 #### 三、云函数
