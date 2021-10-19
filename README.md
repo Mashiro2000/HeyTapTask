@@ -100,7 +100,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|HT.*|sendNotify
 
 #### 其他帮助
 - Q:NameError: name '`xxxxxx`' is not defined
-- A:可能是因为CK的格式存在错误,可以使用[bejson](https://www.bejson.com/)进行校验
+- A:可能是因为CK的格式存在错误
 
 - Q:环境变量如何使用?
 - A:参考格式:`export notifyBlack="TimingCash&DailyCash"`
