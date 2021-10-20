@@ -64,8 +64,6 @@ vi HT_account.py
 
 #### 二、青龙面板拉库指令
 ```text
-旧版本升级新版本,先备份CK数据
-
 第一次拉取
 ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|HT.*|sendNotify" "HT.*|sendNotify"
 
