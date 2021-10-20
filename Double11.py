@@ -6,8 +6,8 @@
 # @Software: PyCharm
 
 '''
-cron:  40 5,12 * * * Double11.py
-new Env('RealMe积分大乱斗');
+cron:  44 7,11 * * * Double11.py
+new Env('全名抽免单');
 '''
 
 import os
