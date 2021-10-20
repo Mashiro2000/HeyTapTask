@@ -17,13 +17,13 @@
 
 [选择模板图片地址](https://z3.ax1x.com/2021/10/02/4b4lhF.png)
 
-### 四、复制源码
-![](https://z3.ax1x.com/2021/10/02/4b4wtO.png)
+### 四、下载源码
+![](./download_code.png)
 
 [复制源码图片地址](https://z3.ax1x.com/2021/10/02/4b4wtO.png)
 
 ### 五、部署代码
-![](https://z3.ax1x.com/2021/10/02/4b5CuR.png)
+![](./upload_code.png)
 
 [部署代码图片代码](https://z3.ax1x.com/2021/10/02/4b5CuR.png)
 
@@ -34,7 +34,7 @@
 
 ### 七、定时规则
 ![](https://s3.bmp.ovh/imgs/2021/09/911f19c5e34daac7.png)
-
+为各个模块都创建触发器，定时任务名称修改为对应模块名称
 [定时规则图片地址](https://s3.bmp.ovh/imgs/2021/09/911f19c5e34daac7.png)
 
 ### 八、配置文件
