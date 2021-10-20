@@ -72,6 +72,7 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|send
 ```
 
 #### 三、云函数
+支持多脚本部署同一云函数，感谢@talking-toaster
 [部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
 
 ##### 变量值
