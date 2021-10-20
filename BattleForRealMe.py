@@ -197,14 +197,14 @@ class BattleForRealMe:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览realme专区':
+             elif each['title'] == '浏览真我Q3S' or each['title'] == '预约真我Q3S':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览真我GT Neo2' or each['title'] == '预约真我GT Neo2':
+            elif each['title'] == '浏览真我GT Neo2T' or each['title'] == '预约真我GT Neo2T':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
