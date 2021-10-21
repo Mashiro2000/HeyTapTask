@@ -6,7 +6,6 @@ import BattleForRealMe
 import ChockInEarly
 import DailyCash
 import TimingCash
-import UserCredit
 
 cron = {
     'TaskCenter': '25 8,13 * * *',
@@ -15,7 +14,6 @@ cron = {
     'ChockInEarly': '33 0,20 * * *',
     'DailyCash': '30 7,15 * * * ',
     'TimingCash': '*/30 * * * *',
-    'UserCredit': '37 22 * * * '
 }
 
 
