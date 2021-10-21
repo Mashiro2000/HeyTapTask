@@ -26,7 +26,7 @@ if __name__ == '__main__':
     #main_handler(None, None)
     event = {
         "Type": "Timer",
-        "TriggerName": "UserCredit",
+        "TriggerName": "TaskCenter",
         "Time": "2019-02-21T11:49:00Z",
         "Message": "user define msg body"
     }
