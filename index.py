@@ -1,19 +1,13 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# @Time    : 2021/9/16
+# @Author  : MashiroF
+# @File    : BattleForRealMe.py
+# @Software: PyCharm
 import TaskCenter
-import BattleForHeyTap
-import BattleForRealMe
-import ChockInEarly
-import DailyCash
-import TimingCash
 
 cron = {
     'TaskCenter': '25 8,13 * * *',
-    'BattleForHeyTap': '45 8,14 * * *',
-    'BattleForRealMe': '40 8,16 * * *',
-    'ChockInEarly': '33 0,20 * * *',
-    'DailyCash': '30 7,15 * * * ',
-    'TimingCash': '*/30 * * * *',
 }
 
 
@@ -23,7 +17,7 @@ def run(taskName: str):
 
 def main_handler(event, context):
     if 'TriggerName' in event:
-        run(event['TriggerName'])
+        run(event['TaskCenter'])
     else:
         print("非定时器触发")
         print(event)
