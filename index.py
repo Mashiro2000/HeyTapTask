@@ -6,10 +6,6 @@
 # @Software: PyCharm
 from importlib import import_module
 
-def run(taskName: str):
-    taskName = import_module(taskName)
-    taskName.main_handler(None, None)
-
 def main_handler(event, context):
-    task = event['TriggerName'].split('\r\n')
-    run(task)
+    taskName = import_module(event['TriggerName'])
+    taskName.main_handler(None, None)
