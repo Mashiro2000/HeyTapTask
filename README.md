@@ -1,5 +1,4 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">求助云函数配置多脚本教程，不会云函数</P>
 <p align="center">建议各位本地运行</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
@@ -73,8 +72,8 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|send
 ```
 
 #### 三、云函数
-支持多脚本部署同一云函数，感谢@talking-toaster(存在bug，后续维护)
-[部署方案](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
+支持多脚本部署同一云函数，正在测试
+部署方案 -> 暂时删除，这几天更新
 
 ##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
