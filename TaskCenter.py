@@ -107,9 +107,9 @@ class TaskCenter:
     # 每日签到
     # 位置: APP → 我的 → 签到
     def signIn(self):
-        self.dailyTask()            # 获取签到和每日任务的数据
-        if self.signInData['status'] == 0 :
-            for each in self.signInData['gifts']:
+        signInData = self.taskData['userReportInfoForm']  # 签到数据源
+        if signInData['status'] == 0 :
+            for each in signInData['gifts']:
                 if each['today'] == True:
                     url = 'https://store.oppo.com/cn/oapi/credits/web/report/immediately'
                     headers = {
@@ -138,7 +138,7 @@ class TaskCenter:
                         else:
                             notify(f"{self.dic['user']}\t签到结果:{response['errorMessage']}")
                             break
-        elif self.signInData['status'] == 1:
+        elif signInData['status'] == 1:
             notify(f"{self.dic['user']}\t今日已签到")
         else:
             notify(f"{self.dic['user']}\t未知错误")
@@ -164,14 +164,18 @@ class TaskCenter:
 
     # 整合每日浏览、分享、推送数据
     def dailyTask(self):
-        self.signInData = self.taskData['userReportInfoForm']  # 签到数据源
-        for eachTask in self.taskData['everydayList']:          # 每日任务数据源
-            if eachTask['marking'] == 'daily_viewgoods':
-                self.viewData = eachTask
-            elif eachTask['marking'] == 'daily_sharegoods':
-                self.shareData = eachTask
-            # elif eachTask['marking'] == 'daily_viewpush':
-            # self.pushData = eachTask
+        if self.taskData['everydayList'] != None:
+            for eachTask in self.taskData['everydayList']:          # 每日任务数据源
+                if eachTask['marking'] == 'daily_viewgoods':
+                    self.viewData = eachTask
+                elif eachTask['marking'] == 'daily_sharegoods':
+                    self.shareData = eachTask
+                # elif eachTask['marking'] == 'daily_viewpush':
+                # self.pushData = eachTask
+            return True
+        else:
+            notify(f"[每日任务]\t任务数据获取失败，跳过")
+            return False
 
     # 浏览任务
     def runViewTask(self):
@@ -387,10 +391,11 @@ class TaskCenter:
     # 位置:我的 -> 任务中心
     def runTaskCenter(self):
         self.signIn()              # 签到打卡
-        self.runViewTask()          # 浏览任务
-        self.runShareTask()         # 分享任务
-        self.runEarnPoint()         # 赚积分
-        # self.runViewPush()          # 浏览推送任务(已下架)
+        if self.dailyTask() == True:
+            self.runViewTask()          # 浏览任务
+            self.runShareTask()         # 分享任务
+            self.runEarnPoint()         # 赚积分
+            # self.runViewPush()          # 浏览推送任务(已下架)
 
     # 执行欢太商城实例对象
     def start(self):
