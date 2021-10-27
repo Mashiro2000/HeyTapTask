@@ -10,7 +10,6 @@ def run(taskName: str):
     taskName = import_module(taskName)
     taskName.main_handler(None, None)
 
-
 def main_handler(event, context):
     task = event['TriggerName'].split('\r\n')
     run(task)
