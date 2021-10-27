@@ -1,4 +1,5 @@
 # <p align="center">HeyTapTask</p>
+<p align="center">求助云函数配置多脚本教程，不会云函数</P>
 <p align="center">建议各位本地运行</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
