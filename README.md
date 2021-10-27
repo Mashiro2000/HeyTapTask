@@ -69,7 +69,7 @@ vi HT_account.py
 ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|sendNotify" "HT.*|sendNotify"
 
 拉取完成后，修改拉库指令，确保HT_account.py不被覆盖，更改拉库命令，命令如下
-ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|sendNotify" "HT_config"
+ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|sendNotify" "HT_config|sendNotify"
 ```
 
 #### 三、云函数
