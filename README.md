@@ -72,8 +72,8 @@ ql repo https://github.com/Mashiro2000/HeyTapTask.git "" "Backup|index|HT.*|send
 ```
 
 #### 三、云函数
-支持多脚本部署同一云函数，正在测试
-部署方案 -> 暂时删除，这几天更新
+> [云函数教程](https://github.com/Mashiro2000/HeyTapTask/blob/main/Doc/README.md)
+> 特别感谢@FgywAwut、@11yiyang提供的方案
 
 ##### 变量值
 - 测试表明欢太所需CK为: `source_type`、`TOKENSID`、`app_param`,顺序不可乱
