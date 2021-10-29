@@ -1,5 +1,5 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">建议各位本地运行</P>
+<p align="center">建议各位本地运行，由于本项目并不成熟，常变更拉库命令，请及时更新</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
 ## 免责声明
