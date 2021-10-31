@@ -176,14 +176,21 @@ class BattleForHeyTap:
 
     def runBattleTask(self):
         for each in self.taskData:
-            if each['title'] == '浏览一加专区':
+            if each['title'] == '浏览realme会场':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t领取成功")
-            elif each['title'] == '浏览潮流好物专区':
+                    notify(f"[{each['title']}]\任务完成")
+            elif each['title'] == '浏览一加会场':
+                if each['t_status'] == 0:
+                    self.runViewTask(dic=each)
+                elif each['t_status'] == 1:
+                    self.receiveAward(each)
+                elif each['t_status'] == 2:
+                    notify(f"[{each['title']}]\t任务完成")
+            elif each['title'] == '浏览潮流好物会场':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
@@ -198,27 +205,6 @@ class BattleForHeyTap:
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '观看一加直播':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览超级宠粉专区':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '浏览realme专区':
-                if each['t_status'] == 0:
-                    self.runViewTask(dic=each)
-                elif each['t_status'] == 1:
-                    self.receiveAward(each)
-                elif each['t_status'] == 2:
-                    notify(f"[{each['title']}]\t任务完成")
-            elif each['title'] == '预约真我GT Neo2T' or each['title'] == '浏览真我GT Neo2T':
                 if each['t_status'] == 0:
                     self.runViewTask(dic=each)
                 elif each['t_status'] == 1:
