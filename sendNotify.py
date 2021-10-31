@@ -5,6 +5,7 @@
 # @Modify  : MashiroF
 # @File    : sendNotify.py
 # @Software: PyCharm
+
 import os
 import re
 import sys
