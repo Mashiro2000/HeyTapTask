@@ -20,12 +20,6 @@ try:
 except ModuleNotFoundError:
     import json
 
-try:
-    from utils_env import get_file_path
-except ModuleNotFoundError:
-    def get_file_path():
-        return ""
-
 # 原先的 print 函数和主线程的锁
 _print = print
 mutex = threading.Lock()
@@ -96,7 +90,7 @@ for k in push_config:
         push_config[k] = v
 
 # 读取配置文件中的变量 (会覆盖环境变量)
-CONFIG_PATH = os.getenv("NOTIFY_CONFIG_PATH") or get_file_path("notify.json5")
+CONFIG_PATH = os.getenv("NOTIFY_CONFIG_PATH")
 if os.path.exists(CONFIG_PATH):
     print(f"通知配置文件存在：{CONFIG_PATH}。")
     try:
