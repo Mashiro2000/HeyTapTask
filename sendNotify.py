@@ -20,7 +20,7 @@ import requests
 try:
     import json5 as json
 except ModuleNotFoundError:
-    logger.info("缺少json5依赖！程序将尝试安装依赖！")
+    print("缺少json5依赖！程序将尝试安装依赖！")
     os.system("pip3 install json5 -i https://pypi.tuna.tsinghua.edu.cn/simple")
     os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
