@@ -83,29 +83,6 @@ push_config = {
 notify_function = []
 # fmt: on
 
-# 首先读取 面板变量 或者 github action 运行变量
-for k in push_config:
-    if os.getenv(k):
-        v = os.getenv(k)
-        push_config[k] = v
-
-# 读取配置文件中的变量 (会覆盖环境变量)
-CONFIG_PATH = os.getenv("NOTIFY_CONFIG_PATH")
-if os.path.exists(CONFIG_PATH):
-    print(f"通知配置文件存在：{CONFIG_PATH}。")
-    try:
-        for k, v in dict(
-                json.load(open(CONFIG_PATH, mode="r", encoding="utf-8"))
-        ).items():
-            if k in push_config:
-                push_config[k] = v
-    except ValueError:
-        print(
-            f"错误：配置文件 {CONFIG_PATH} 格式不对，请在 https://verytoolz.com/json5-validator.html 中检查格式"
-        )
-elif CONFIG_PATH:
-    print(f"{CONFIG_PATH} 配置的通知文件不存在，请检查文件位置或删除对应环境变量！")
-
 
 def bark(title: str, content: str) -> None:
     """
