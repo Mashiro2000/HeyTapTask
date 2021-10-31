@@ -16,10 +16,13 @@ import time
 import urllib.parse
 import requests
 
+# 第三方库
 try:
-    import json5 as json
+    import json5
 except ModuleNotFoundError:
-    import json
+    logger.info("缺少json5依赖！程序将尝试安装依赖！")
+    os.system("pip3 install json5 -i https://pypi.tuna.tsinghua.edu.cn/simple")
+    os.execl(sys.executable, 'python3', __file__, *sys.argv)
 
 
 # 原先的 print 函数和主线程的锁
