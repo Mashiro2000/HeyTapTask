@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/31
 # @Author  : Oreomeow
+# @Modify  : MashiroF
 # @File    : sendNotify.py
 # @Software: PyCharm
 
