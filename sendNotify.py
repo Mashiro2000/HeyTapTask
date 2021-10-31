@@ -81,9 +81,118 @@ push_config = {
     'TG_PROXY_PORT': '',                # tg 机器人的 TG_PROXY_PORT
 }
 notify_function = []
-# fmt: on
+
+#####################################配信环境变量开始#############################################
+## 环境变量优先级 > 配信文件优先级
+## 一言环境变量
+if "HITOKOTO" in os.environ and os.environ["HITOKOTO"]:
+    push_config['HITOKOTO'] = os.environ["HITOKOTO"]
+
+## BARK环境变量
+if "BARK_PUSH" in os.environ and os.environ["BARK_PUSH"]:
+    push_config['BARK_PUSH'] = os.environ["BARK_PUSH"]
+if "BARK_ARCHIVE" in os.environ and os.environ["BARK_ARCHIVE"]:
+    push_config['BARK_ARCHIVE'] = os.environ["BARK_ARCHIVE"]
+if "BARK_GROUP" in os.environ and os.environ["BARK_GROUP"]:
+    push_config['BARK_GROUP'] = os.environ["BARK_GROUP"]
+if "BARK_SOUND" in os.environ and os.environ["BARK_SOUND"]:
+    push_config['BARK_SOUND'] = os.environ["BARK_SOUND"]
+
+## 控制台输出环境变量
+if "CONSOLE" in os.environ and os.environ["CONSOLE"]:
+    push_config['CONSOLE'] = os.environ["CONSOLE"]
+
+## 钉钉机器人环境变量
+if "DD_BOT_TOKEN" in os.environ and os.environ["DD_BOT_TOKEN"] and "DD_BOT_SECRET" in os.environ and os.environ["DD_BOT_SECRET"]:
+    push_config['DD_BOT_TOKEN'] = os.environ["DD_BOT_TOKEN"]
+    push_config['DD_BOT_SECRET'] = os.environ["DD_BOT_SECRET"]
+
+## 飞书机器人环境变量
+if "FSKEY" in os.environ and os.environ["FSKEY"]:
+    push_config['FSKEY'] = os.environ["FSKEY"]
+
+## go_cqhttp环境变量
+if "GOBOT_URL" in os.environ and os.environ["GOBOT_URL"] and "GOBOT_QQ" in os.environ and os.environ["GOBOT_QQ"]:
+    push_config['GOBOT_URL'] = os.environ["GOBOT_URL"]
+    push_config['GOBOT_QQ'] = os.environ["GOBOT_QQ"]
+if "GOBOT_TOKEN" in os.environ and os.environ["GOBOT_TOKEN"]:
+    push_config['GOBOT_TOKEN'] = os.environ["GOBOT_TOKEN"]
+
+##  iGot聚合推送环境变量
+if "IGOT_PUSH_KEY" in os.environ and os.environ["IGOT_PUSH_KEY"]:
+    push_config['IGOT_PUSH_KEY'] = os.environ["IGOT_PUSH_KEY"]
+
+## server酱环境变量
+if "PUSH_KEY" in os.environ and os.environ["PUSH_KEY"]:
+    push_config['PUSH_KEY'] = os.environ["PUSH_KEY"]
+
+## push+微信推送环境变量
+if "PUSH_PLUS_TOKEN" in os.environ and os.environ["PUSH_PLUS_TOKEN"]:
+    push_config['PUSH_PLUS_TOKEN'] = os.environ["PUSH_PLUS_TOKEN"]
+if "PUSH_PLUS_USER" in os.environ and os.environ["PUSH_PLUS_USER"]:
+    push_config['PUSH_PLUS_USER'] = os.environ["PUSH_PLUS_USER"]
+
+## go_cqhttp环境变量
+if "QMSG_KEY" in os.environ and os.environ["QMSG_KEY"] and "QMSG_TYPE" in os.environ and os.environ["QMSG_TYPE"]:
+    push_config['QMSG_KEY'] = os.environ["QMSG_KEY"]
+    push_config['QMSG_TYPE'] = os.environ["QMSG_TYPE"]
+
+## 企业微信应用环境变量
+if "QYWX_AM" in os.environ and os.environ["QYWX_AM"]:
+    push_config['QYWX_AM'] = os.environ["QYWX_AM"]
+
+## 企业微信机器人环境变量
+if "QYWX_KEY" in os.environ and os.environ["QYWX_KEY"]:
+    push_config['QYWX_KEY'] = os.environ["QYWX_KEY"]
+
+## tg 机器人环境变量
+if "TG_BOT_TOKEN" in os.environ and os.environ["TG_BOT_TOKEN"] and "TG_USER_ID" in os.environ and os.environ["TG_USER_ID"]:
+    push_config['TG_BOT_TOKEN'] = os.environ["TG_BOT_TOKEN"]
+    push_config['TG_USER_ID'] = os.environ["TG_USER_ID"]
+if "TG_API_HOST" in os.environ and os.environ["TG_API_HOST"]:
+    push_config['TG_API_HOST'] = os.environ["TG_API_HOST"]
+if "TG_PROXY_AUTH" in os.environ and os.environ["TG_PROXY_AUTH"]:
+    push_config['TG_PROXY_AUTH'] = os.environ["TG_PROXY_AUTH"]
+if "TG_PROXY_HOST" in os.environ and os.environ["TG_PROXY_HOST"]:
+    push_config['TG_PROXY_HOST'] = os.environ["TG_PROXY_HOST"]
+if "TG_PROXY_PORT" in os.environ and os.environ["TG_PROXY_PORT"]:
+    push_config['TG_PROXY_PORT'] = os.environ["TG_PROXY_PORT"]
+
+#####################################配信环境变量结束#############################################
 
 
+
+
+#####################################检测配信参数开始#############################################
+if push_config.get("BARK_PUSH"):
+    notify_function.append(bark)
+if push_config.get("CONSOLE"):
+    notify_function.append(console)
+if push_config.get("DD_BOT_TOKEN") and push_config.get("DD_BOT_SECRET"):
+    notify_function.append(dingding_bot)
+if push_config.get("FSKEY"):
+    notify_function.append(feishu_bot)
+if push_config.get("GOBOT_URL") and push_config.get("GOBOT_QQ"):
+    notify_function.append(go_cqhttp)
+if push_config.get("IGOT_PUSH_KEY"):
+    notify_function.append(iGot)
+if push_config.get("PUSH_KEY"):
+    notify_function.append(serverJ)
+if push_config.get("PUSH_PLUS_TOKEN"):
+    notify_function.append(pushplus_bot)
+if push_config.get("QMSG_KEY") and push_config.get("QMSG_TYPE"):
+    notify_function.append(qmsg_bot)
+if push_config.get("QYWX_AM"):
+    notify_function.append(wecom_app)
+if push_config.get("QYWX_KEY"):
+    notify_function.append(wecom_bot)
+if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
+    notify_function.append(telegram_bot)
+#####################################检测配信参数结束#############################################
+
+
+
+########################################配信方法定义#############################################
 def bark(title: str, content: str) -> None:
     """
     使用 bark 推送消息。
@@ -455,33 +564,6 @@ def one() -> str:
     res = requests.get(url).json()
     return res["hitokoto"] + "    ----" + res["from"]
 
-
-if push_config.get("BARK_PUSH"):
-    notify_function.append(bark)
-if push_config.get("CONSOLE"):
-    notify_function.append(console)
-if push_config.get("DD_BOT_TOKEN") and push_config.get("DD_BOT_SECRET"):
-    notify_function.append(dingding_bot)
-if push_config.get("FSKEY"):
-    notify_function.append(feishu_bot)
-if push_config.get("GOBOT_URL") and push_config.get("GOBOT_QQ"):
-    notify_function.append(go_cqhttp)
-if push_config.get("IGOT_PUSH_KEY"):
-    notify_function.append(iGot)
-if push_config.get("PUSH_KEY"):
-    notify_function.append(serverJ)
-if push_config.get("PUSH_PLUS_TOKEN"):
-    notify_function.append(pushplus_bot)
-if push_config.get("QMSG_KEY") and push_config.get("QMSG_TYPE"):
-    notify_function.append(qmsg_bot)
-if push_config.get("QYWX_AM"):
-    notify_function.append(wecom_app)
-if push_config.get("QYWX_KEY"):
-    notify_function.append(wecom_bot)
-if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
-    notify_function.append(telegram_bot)
-
-
 def excepthook(args, /):
     if issubclass(args.exc_type, requests.exceptions.RequestException):
         print(
@@ -490,6 +572,9 @@ def excepthook(args, /):
     else:
         global default_hook
         default_hook(args)
+########################################配信方法结束#############################################
+
+
 
 
 default_hook = threading.excepthook
