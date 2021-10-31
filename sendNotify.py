@@ -163,35 +163,6 @@ if "TG_PROXY_PORT" in os.environ and os.environ["TG_PROXY_PORT"]:
 
 
 
-#####################################检测配信参数开始#############################################
-if push_config.get("BARK_PUSH"):
-    notify_function.append(bark)
-if push_config.get("CONSOLE"):
-    notify_function.append(console)
-if push_config.get("DD_BOT_TOKEN") and push_config.get("DD_BOT_SECRET"):
-    notify_function.append(dingding_bot)
-if push_config.get("FSKEY"):
-    notify_function.append(feishu_bot)
-if push_config.get("GOBOT_URL") and push_config.get("GOBOT_QQ"):
-    notify_function.append(go_cqhttp)
-if push_config.get("IGOT_PUSH_KEY"):
-    notify_function.append(iGot)
-if push_config.get("PUSH_KEY"):
-    notify_function.append(serverJ)
-if push_config.get("PUSH_PLUS_TOKEN"):
-    notify_function.append(pushplus_bot)
-if push_config.get("QMSG_KEY") and push_config.get("QMSG_TYPE"):
-    notify_function.append(qmsg_bot)
-if push_config.get("QYWX_AM"):
-    notify_function.append(wecom_app)
-if push_config.get("QYWX_KEY"):
-    notify_function.append(wecom_bot)
-if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
-    notify_function.append(telegram_bot)
-#####################################检测配信参数结束#############################################
-
-
-
 ########################################配信方法定义#############################################
 def bark(title: str, content: str) -> None:
     """
@@ -573,6 +544,35 @@ def excepthook(args, /):
         global default_hook
         default_hook(args)
 ########################################配信方法结束#############################################
+
+
+
+#####################################检测配信参数开始#############################################
+if push_config.get("BARK_PUSH"):
+    notify_function.append(bark)
+if push_config.get("CONSOLE"):
+    notify_function.append(console)
+if push_config.get("DD_BOT_TOKEN") and push_config.get("DD_BOT_SECRET"):
+    notify_function.append(dingding_bot)
+if push_config.get("FSKEY"):
+    notify_function.append(feishu_bot)
+if push_config.get("GOBOT_URL") and push_config.get("GOBOT_QQ"):
+    notify_function.append(go_cqhttp)
+if push_config.get("IGOT_PUSH_KEY"):
+    notify_function.append(iGot)
+if push_config.get("PUSH_KEY"):
+    notify_function.append(serverJ)
+if push_config.get("PUSH_PLUS_TOKEN"):
+    notify_function.append(pushplus_bot)
+if push_config.get("QMSG_KEY") and push_config.get("QMSG_TYPE"):
+    notify_function.append(qmsg_bot)
+if push_config.get("QYWX_AM"):
+    notify_function.append(wecom_app)
+if push_config.get("QYWX_KEY"):
+    notify_function.append(wecom_bot)
+if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
+    notify_function.append(telegram_bot)
+#####################################检测配信参数结束#############################################
 
 
 
