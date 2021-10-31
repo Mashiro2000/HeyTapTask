@@ -211,6 +211,13 @@ class BattleForRealMe:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
+            elif each['title'] == '浏览realme会场':
+                if each['t_status'] == 0:
+                    self.runViewTask(dic=each)
+                elif each['t_status'] == 1:
+                    self.receiveAward(each)
+                elif each['t_status'] == 2:
+                    notify(f"[{each['title']}]\t任务完成")
 
     # 执行欢太商城实例对象
     def start(self):
