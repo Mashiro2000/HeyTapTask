@@ -13,13 +13,10 @@ import os
 import re
 import threading
 import time
+import json
 import urllib.parse
 import requests
 
-try:
-    import json5 as json
-except ModuleNotFoundError:
-    import json
 
 # 原先的 print 函数和主线程的锁
 _print = print
