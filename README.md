@@ -32,7 +32,7 @@
 * [x] 集卡赢套票
 * [x] 积分大作战(realme)
 * [x] 积分大作战(HeyTap)
-* [x] 配信功能 由@curtinlv开发
+* [x] 配信功能 由@Oreomeow开发
 
 ## 文件说明
 ```text
