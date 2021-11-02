@@ -6,26 +6,18 @@
 # @File    : sendNotify.py
 # @Software: PyCharm
 
+import base64
+import hashlib
+import hmac
+import json
 import os
 import re
 import sys
-import time
-import hmac
-import base64
-import hashlib
-import requests
 import threading
+import time
 import urllib.parse
 
-
-# 第三方库
-try:
-    import json5 as json
-except ModuleNotFoundError:
-    print("缺少json5依赖！程序将尝试安装依赖！")
-    os.system("pip3 install json5 -i https://pypi.tuna.tsinghua.edu.cn/simple")
-    os.execl(sys.executable, 'python3', __file__, *sys.argv)
-
+import requests
 
 # 原先的 print 函数和主线程的锁
 _print = print
@@ -98,6 +90,7 @@ for key in push_config:
 
 
 
+
 ########################################配信方法定义#############################################
 def bark(title: str, content: str) -> None:
     """
@@ -141,7 +134,7 @@ def console(title: str, content: str) -> None:
     """
     使用 控制台 推送消息。
     """
-    print(f"{title}\n\n" f"{content}")
+    print(f"{title}\n\n{content}")
 
 
 def dingding_bot(title: str, content: str) -> None:
@@ -165,7 +158,7 @@ def dingding_bot(title: str, content: str) -> None:
     headers = {"Content-Type": "application/json;charset=utf-8"}
     data = {"msgtype": "text", "text": {"content": f"{title}\n\n{content}"}}
     response = requests.post(
-        url=url, data=json.dumps(data, quote_keys=True), headers=headers, timeout=15
+        url=url, data=json.dumps(data), headers=headers, timeout=15
     ).json()
 
     if not response["errcode"]:
@@ -185,7 +178,7 @@ def feishu_bot(title: str, content: str) -> None:
 
     url = f'https://open.feishu.cn/open-apis/bot/v2/hook/{push_config.get("FSKEY")}'
     data = {"msg_type": "text", "content": {"text": f"{title}\n\n{content}"}}
-    response = requests.post(url, data=json.dumps(data, quote_keys=True)).json()
+    response = requests.post(url, data=json.dumps(data)).json()
 
     if response.get("StatusCode") == 0:
         print("飞书 推送成功！")
@@ -269,7 +262,7 @@ def pushplus_bot(title: str, content: str) -> None:
         "content": content,
         "topic": push_config.get("PUSH_PLUS_USER"),
     }
-    body = json.dumps(data, quote_keys=True).encode(encoding="utf-8")
+    body = json.dumps(data).encode(encoding="utf-8")
     headers = {"Content-Type": "application/json"}
     response = requests.post(url=url, data=body, headers=headers).json()
 
@@ -361,7 +354,7 @@ class WeCom:
             "text": {"content": message},
             "safe": "0",
         }
-        send_msges = bytes(json.dumps(send_values, quote_keys=True), "utf-8")
+        send_msges = bytes(json.dumps(send_values), "utf-8")
         respone = requests.post(send_url, send_msges)
         respone = respone.json()
         return respone["errmsg"]
@@ -388,7 +381,7 @@ class WeCom:
                 ]
             },
         }
-        send_msges = bytes(json.dumps(send_values, quote_keys=True), "utf-8")
+        send_msges = bytes(json.dumps(send_values), "utf-8")
         respone = requests.post(send_url, send_msges)
         respone = respone.json()
         return respone["errmsg"]
@@ -407,7 +400,7 @@ def wecom_bot(title: str, content: str) -> None:
     headers = {"Content-Type": "application/json;charset=utf-8"}
     data = {"msgtype": "text", "text": {"content": f"{title}\n\n{content}"}}
     response = requests.post(
-        url=url, data=json.dumps(data, quote_keys=True), headers=headers, timeout=15
+        url=url, data=json.dumps(data), headers=headers, timeout=15
     ).json()
 
     if response["errcode"] == 0:
@@ -469,16 +462,9 @@ def one() -> str:
     url = "https://v1.hitokoto.cn/"
     res = requests.get(url).json()
     return res["hitokoto"] + "    ----" + res["from"]
-
-def excepthook(args, /):
-    if issubclass(args.exc_type, requests.exceptions.RequestException):
-        print(
-            f"网络异常，请检查你的网络连接、推送服务器和代理配置，该错误和账号配置无关。信息：{str(args.exc_type)}, {args.thread.name}"
-        )
-    else:
-        global default_hook
-        default_hook(args)
 ########################################配信方法结束#############################################
+
+
 
 
 
@@ -511,9 +497,6 @@ if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
 
 
 
-
-default_hook = threading.excepthook
-threading.excepthook = excepthook
 
 
 def send(title: str, content: str) -> None:
