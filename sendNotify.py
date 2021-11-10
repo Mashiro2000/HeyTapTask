@@ -170,10 +170,10 @@ def dingding_bot(title: str, content: str) -> None:
             url=url, data=json.dumps(data), headers=headers, timeout=15
         )
         datas = response.json()
-        if datas['errcode'] == 0:
+        if datas.get("errcode") == 0:
             print("钉钉机器人 推送成功！")
         else:
-            print(f"钉钉机器人 推送失败！响应数据：{response.json}")
+            print(f"钉钉机器人 推送失败！响应数据：{response.text}")
     except json.JSONDecodeError as e:
         print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
     except requests.exceptions.RequestException as e:
