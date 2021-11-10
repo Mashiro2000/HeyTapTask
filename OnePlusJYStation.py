@@ -234,6 +234,27 @@ class OnePlusJYStation:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
                     notify(f"[{each['title']}]\t任务完成")
+
+    # 获取积分数量(只找到这个，找不到昨天积分数据)
+    def getIntegral(self):
+        url = 'https://store.oppo.com/cn/oapi/credits/web/credits/show'
+        headers = {
+            'Host': 'store.oppo.com',
+            'Connection': 'keep-alive',
+            'source_type': '501',
+            'clientPackage': 'com.oppo.store',
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,en-US;q=0.9',
+            'X-Requested-With': 'com.oppo.store',
+            'Referer': 'https://store.oppo.com/cn/app/taskCenter/index?us=gerenzhongxin&um=hudongleyuan&uc=renwuzhongxin'
+        }
+        response = self.sess.get(url=url,headers=headers).json()
+        if response['code'] == 200:
+            return f"{self.dic['user']}\t总积分:{response['data']['userCredits']}"
+        else:
+            return f"{self.dic['user']}\t错误原因:{response}"
+
     # 执行欢太商城实例对象
     def start(self):
         self.sess.headers.update({
@@ -245,6 +266,7 @@ class OnePlusJYStation:
         if self.login() == True:
             if self.getBattleList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runBattleTask()                        # 运行任务中心
+                notify(self.getintegral())
             notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
