@@ -138,7 +138,7 @@ class CheckInEarly:
         })
         if self.login() == True:
             self.early()
-            notify(self.getintegral())
+            notify(self.getIntegral())
         notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
