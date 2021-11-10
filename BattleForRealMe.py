@@ -237,8 +237,7 @@ class BattleForRealMe:
         if response['code'] == 200:
             return f"{self.dic['user']}\t总积分:{response['data']['userCredits']}"
         else:
-            notify(f"{self.dic['user']}\t错误原因:{response}")
-            return False
+            return f"{self.dic['user']}\t错误原因:{response}"
 
     # 执行欢太商城实例对象
     def start(self):
