@@ -316,7 +316,7 @@ class Double11:
         if self.login() == True:
             if self.getBattleList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runBattleTask()                        # 运行任务中心
-                notify(self.getintegral())
+                notify(self.getIntegral())
             notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
