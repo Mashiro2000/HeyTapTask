@@ -108,6 +108,26 @@ class CheckInEarly:
         elif response['code'] == 1000005:
             notify(f"{self.dic['user']}\t{response['errorMessage']}")
 
+    # 获取积分数量(只找到这个，找不到昨天积分数据)
+    def getIntegral(self):
+        url = 'https://store.oppo.com/cn/oapi/credits/web/credits/show'
+        headers = {
+            'Host': 'store.oppo.com',
+            'Connection': 'keep-alive',
+            'source_type': '501',
+            'clientPackage': 'com.oppo.store',
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,en-US;q=0.9',
+            'X-Requested-With': 'com.oppo.store',
+            'Referer': 'https://store.oppo.com/cn/app/taskCenter/index?us=gerenzhongxin&um=hudongleyuan&uc=renwuzhongxin'
+        }
+        response = self.sess.get(url=url,headers=headers).json()
+        if response['code'] == 200:
+            return f"{self.dic['user']}\t总积分:{response['data']['userCredits']}"
+        else:
+            return f"{self.dic['user']}\t错误原因:{response}"
+
     # 执行欢太商城实例对象
     def start(self):
         self.sess.headers.update({
@@ -118,6 +138,7 @@ class CheckInEarly:
         })
         if self.login() == True:
             self.early()
+            notify(self.getintegral())
         notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
