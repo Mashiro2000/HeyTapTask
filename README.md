@@ -33,7 +33,7 @@
 * [x] 积分大作战(realme)
 * [x] 积分大作战(HeyTap)
 * [x] 配信功能 由@Oreomeow开发
-* [] OPPO社区早起打卡&OPPO社区签到
+* [ ] OPPO社区早起打卡&OPPO社区签到(测试)
 
 ## 文件说明
 ```text
