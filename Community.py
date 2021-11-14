@@ -188,7 +188,7 @@ class Community:
 
 
     def start(self):
-        token = re.findall(r'TOKENSID=(.*?;)',self.dic['CK'],re.S)
+        token = re.findall(r'TOKENSID=(TOKEN.*?;)',self.dic['CK'],re.S)
         if token !=[]:
             self.sess.headers.update({
                 "User-Agent":self.dic['UA']
