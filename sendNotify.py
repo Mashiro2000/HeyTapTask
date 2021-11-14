@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 # _*_ coding:utf-8 _*_
-# @Time    : 2021/10/31
-# @Author  : Oreomeow
-# @Modify  : MashiroF
-# @File    : sendNotify.py
-# @Software: PyCharm
-
 import base64
 import hashlib
 import hmac
@@ -81,14 +75,13 @@ push_config = {
 notify_function = []
 # fmt: on
 
-## 环境变量优先级 > 配信文件优先级
-for key in push_config:
-    if os.getenv(key):
-        value = os.getenv(key)
-        push_config[key] = value
+# 首先读取 面板变量 或者 github action 运行变量
+for k in push_config:
+    if os.getenv(k):
+        v = os.getenv(k)
+        push_config[k] = v
 
 
-########################################配信方法定义#############################################
 def bark(title: str, content: str) -> None:
     """
     使用 bark 推送消息。
@@ -122,15 +115,16 @@ def bark(title: str, content: str) -> None:
 
     try:
         response = requests.get(url, timeout=15)
-        datas = response.json()
-        if datas.get("code") == 200:
-            print("bark 推送成功！")
-        elif datas.get("code") == 400:
-            print("bark 推送失败！找不到 Key 对应的 DeviceToken。")
-        else:
-            print(f"bark 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("code") == 200:
+                print("bark 推送成功！")
+            elif datas.get("code") == 400:
+                print("bark 推送失败！找不到 Key 对应的 DeviceToken。")
+            else:
+                print(f"bark 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -169,13 +163,14 @@ def dingding_bot(title: str, content: str) -> None:
         response = requests.post(
             url=url, data=json.dumps(data), headers=headers, timeout=15
         )
-        datas = response.json()
-        if datas.get("errcode") == 0:
-            print("钉钉机器人 推送成功！")
-        else:
-            print(f"钉钉机器人 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("errcode") == 0:
+                print("钉钉机器人 推送成功！")
+            else:
+                print(f"钉钉机器人 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -195,13 +190,14 @@ def feishu_bot(title: str, content: str) -> None:
     data = {"msg_type": "text", "content": {"text": f"{title}\n\n{content}"}}
     try:
         response = requests.post(url, data=json.dumps(data), timeout=15)
-        datas = response.json
-        if datas.get("StatusCode") == 0:
-            print("飞书 推送成功！")
-        else:
-            print(f"飞书 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("StatusCode") == 0:
+                print("飞书 推送成功！")
+            else:
+                print(f"飞书 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -221,13 +217,14 @@ def go_cqhttp(title: str, content: str) -> None:
 
     try:
         response = requests.get(url, timeout=15)
-        datas = response.json()
-        if datas.get("status") == "ok":
-            print("go-cqhttp 推送成功！")
-        else:
-            print("go-cqhttp 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("status") == "ok":
+                print("go-cqhttp 推送成功！")
+            else:
+                print(f"go-cqhttp 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -249,13 +246,14 @@ def iGot(title: str, content: str) -> None:
 
     try:
         response = requests.post(url, data=data, headers=headers, timeout=15)
-        datas = response.json()
-        if datas.get("ret") == 0:
-            print("iGot 推送成功！")
-        else:
-            print(f'iGot 推送失败！错误信息：{datas.get("errMsg")}')
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("ret") == 0:
+                print("iGot 推送成功！")
+            else:
+                print(f'iGot 推送失败！错误信息：{datas.get("errMsg")}')
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -279,15 +277,16 @@ def serverJ(title: str, content: str) -> None:
 
     try:
         response = requests.post(url, data=data, timeout=15)
-        datas = response.json()
-        if datas.get("errno") == 0 or datas.get("code") == 0:
-            print("serverJ 推送成功！")
-        elif datas.get("code") == 40001:
-            print("serverJ 推送失败！PUSH_KEY 错误。")
-        else:
-            print(f'serverJ 推送失败！错误码：{datas.get("message")}')
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("errno") == 0 or datas.get("code") == 0:
+                print("serverJ 推送成功！")
+            elif datas.get("code") == 40001:
+                print("serverJ 推送失败！PUSH_KEY 错误。")
+            else:
+                print(f'serverJ 推送失败！错误码：{datas.get("message")}')
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -315,23 +314,29 @@ def pushplus_bot(title: str, content: str) -> None:
 
     try:
         response = requests.post(url=url, data=body, headers=headers, timeout=15)
-        datas = response.json()
-        if datas.get("code") == 200:
-            print("PUSHPLUS 推送成功！")
-        elif datas.get("code") == 600:
-            url2 = "http://pushplus.hxtrip.com/send"
-            response2 = requests.post(url=url2, data=body, headers=headers, timeout=15)
-            datas2 = response2.json()
-            if datas2.get("code") == 200:
-                print("PUSHPLUS(hxtrip) 推送成功！")
-            elif datas2.get("code") == 600:
-                print("PUSHPLUS 推送失败！PUSH_PLUS_TOKEN 错误。")
+        try:
+            datas = response.json()
+            if datas.get("code") == 200:
+                print("PUSHPLUS 推送成功！")
+            elif datas.get("code") == 600:
+                url2 = "http://pushplus.hxtrip.com/send"
+                response2 = requests.post(
+                    url=url2, data=body, headers=headers, timeout=15
+                )
+                try:
+                    datas2 = response2.json()
+                    if datas2.get("code") == 200:
+                        print("PUSHPLUS(hxtrip) 推送成功！")
+                    elif datas2.get("code") == 600:
+                        print("PUSHPLUS 推送失败！PUSH_PLUS_TOKEN 错误。")
+                    else:
+                        print(f"PUSHPLUS(hxtrip) 推送失败！响应数据：{datas2}")
+                except json.JSONDecodeError:
+                    print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response2.text}")
             else:
-                print(f"PUSHPLUS(hxtrip) 推送失败！响应数据：{response2.text}")
-        else:
-            print(f"PUSHPLUS 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+                print(f"PUSHPLUS 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -352,13 +357,14 @@ def qmsg_bot(title: str, content: str) -> None:
 
     try:
         response = requests.post(url=url, params=payload, timeout=15)
-        datas = response.json()
-        if response.get("code") == 0:
-            print("qmsg 推送成功！")
-        else:
-            print(f'qmsg 推送失败！错误信息：{datas.get("reason")}')
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if response.get("code") == 0:
+                print("qmsg 推送成功！")
+            else:
+                print(f'qmsg 推送失败！错误信息：{datas.get("reason")}')
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -398,8 +404,6 @@ def wecom_app(title: str, content: str) -> None:
             print("企业微信推送成功！")
         else:
             print(f"企业微信推送失败！错误信息：{datas}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -419,8 +423,8 @@ class WeCom:
             "corpsecret": self.CORPSECRET,
         }
         req = requests.post(url, params=values, timeout=15)
-        data = json.loads(req.text)
-        return data.get("access_token")
+        datas = json.loads(req.text)
+        return datas.get("access_token")
 
     def send_text(self, message, touser="@all"):
         send_url = (
@@ -436,8 +440,12 @@ class WeCom:
         }
         send_msges = bytes(json.dumps(send_values), "utf-8")
         response = requests.post(send_url, send_msges, timeout=15)
-        datas = response.json()
-        return datas.get("errmsg")
+        try:
+            datas = response.json()
+            return datas.get("errmsg")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
+            return response.text
 
     def send_mpnews(self, title, message, media_id, touser="@all"):
         send_url = (
@@ -463,8 +471,12 @@ class WeCom:
         }
         send_msges = bytes(json.dumps(send_values), "utf-8")
         response = requests.post(send_url, send_msges, timeout=15)
-        datas = response.json()
-        return datas.get("errmsg")
+        try:
+            datas = response.json()
+            return datas.get("errmsg")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
+            return response.text
 
 
 def wecom_bot(title: str, content: str) -> None:
@@ -484,13 +496,14 @@ def wecom_bot(title: str, content: str) -> None:
         response = requests.post(
             url=url, data=json.dumps(data), headers=headers, timeout=15
         )
-        datas = response.json()
-        if datas.get("errcode") == 0:
-            print("企业微信机器人 推送成功！")
-        else:
-            print(f"企业微信机器人 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("errcode") == 0:
+                print("企业微信机器人 推送成功！")
+            else:
+                print(f"企业微信机器人 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -537,17 +550,18 @@ def telegram_bot(title: str, content: str) -> None:
         response = requests.post(
             url=url, headers=headers, params=payload, proxies=proxies, timeout=15
         )
-        datas = response.json()
-        if datas.get("ok") == True:
-            print("tg 推送成功！")
-        elif datas.get("error_code") == 400:
-            print("tg 推送失败！请主动给 bot 发送一条消息并检查接收用户 TG_USER_ID 是否正确。")
-        elif datas.get("error_code") == 401:
-            print("tg 推送失败！TG_BOT_TOKEN 填写错误。")
-        else:
-            print(f"tg 推送失败！响应数据：{response.text}")
-    except json.JSONDecodeError as e:
-        print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{e}")
+        try:
+            datas = response.json()
+            if datas.get("ok") == True:
+                print("tg 推送成功！")
+            elif datas.get("error_code") == 400:
+                print("tg 推送失败！请主动给 bot 发送一条消息并检查接收用户 TG_USER_ID 是否正确。")
+            elif datas.get("error_code") == 401:
+                print("tg 推送失败！TG_BOT_TOKEN 填写错误。")
+            else:
+                print(f"tg 推送失败！响应数据：{datas}")
+        except json.JSONDecodeError:
+            print(f"推送返回值非 json 格式，请检查网址和账号是否填写正确。\n{response.text}")
     except requests.exceptions.RequestException as e:
         print(f"网络异常，请检查你的网络连接、推送服务器和代理配置。\n{e}")
     except Exception as e:
@@ -567,10 +581,6 @@ def one() -> str:
         return ""
 
 
-########################################配信方法结束#############################################
-
-
-#####################################检测配信参数开始#############################################
 if push_config.get("BARK_PUSH"):
     notify_function.append(bark)
 if push_config.get("CONSOLE"):
@@ -595,7 +605,6 @@ if push_config.get("QYWX_KEY"):
     notify_function.append(wecom_bot)
 if push_config.get("TG_BOT_TOKEN") and push_config.get("TG_USER_ID"):
     notify_function.append(telegram_bot)
-#####################################检测配信参数结束#############################################
 
 
 def send(title: str, content: str) -> None:
