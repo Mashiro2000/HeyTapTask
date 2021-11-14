@@ -352,6 +352,8 @@ def main_handler(event, context):
                 else:
                     notify(f"账号: {double11.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
+        else:
+            notify(f"账号: {double11.dic['user']}\n状态: 取消登录\n原因: json数据不齐全")
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('全名抽免单',allMess)
 
