@@ -1,8 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2021/10/20
-# @Author  : 2984922017@qq.com
-# @File    : MashiroF.py
+# @Time    : 2021/11/14
+# @Author  : MashiroF
+# @File    : Community.py
 # @Software: PyCharm
 
 '''
