@@ -165,7 +165,7 @@ def checkHT(dic):
 def main_handler(event, context):
     global lists
     for each in lists:
-        if all(each.values()):
+        if each['CK']!='' and each['UA'] != '':
             if checkHT(each):
                 timingCash = TimingCash(each)
                 for count in range(3):
