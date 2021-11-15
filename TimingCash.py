@@ -182,6 +182,8 @@ def main_handler(event, context):
                     break
         elif all(each.values()):
             pass
+        else:
+            notify(f"账号: {each['user']}\n状态: 取消登录\n原因: json数据不齐全")
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('欢太定时现金',allMess)
 
