@@ -229,7 +229,7 @@ class OnePlusJYStation:
                     notify(f"[{each['title']}]\t任务完成")
             elif each['title'] == '浏览一加商品':
                 if each['t_status'] == 0:
-                    self.viewGoods(flag=1,count=6,dic=each)
+                    self.viewGoods(count=6,dic=each)
                 elif each['t_status'] == 1:
                     self.receiveAward(each)
                 elif each['t_status'] == 2:
