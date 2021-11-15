@@ -279,7 +279,7 @@ def main_handler(event, context):
                 else:
                     notify(f"账号: {battleForHeyTap.dic['user']}\n状态: 取消登录\n原因: 多次登录失败")
                     break
-        elif all(each.values()):
+        elif not all(each.values()):
             notify("账号:空账户\t状态:跳过")
         else:
             notify(f"账号: {each['user']}\n状态: 取消登录\n原因: json数据不齐全")
