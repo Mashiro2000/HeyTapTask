@@ -429,7 +429,6 @@ class TaskCenter:
             if self.getTaskList() == True:              # 获取任务中心数据，判断CK是否正确(登录可能成功，但无法跑任务)
                 self.runTaskCenter()                    # 运行任务中心
                 notify(self.getIntegral())
-            notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
 def checkHT(dic):
@@ -468,6 +467,7 @@ def main_handler(event, context):
             notify("账号:空账户\t状态:跳过")
         else:
             notify(f"账号: {each['user']}\n状态: 取消登录\n原因: json数据不齐全")
+        notify('*' * 40 + '\n')
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('欢太任务中心',allMess)
 
