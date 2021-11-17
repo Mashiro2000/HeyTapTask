@@ -199,7 +199,6 @@ class Community:
             if self.login() == True:
                 self.ClockIn()
                 self.earlyBed ()
-            notify('*' * 40 + '\n')
 
 def checkHT(dic):
     if len(re.findall(r'TOKENSID=.*?;',dic['CK'])) == 0:
@@ -229,6 +228,7 @@ def main_handler(event, context):
             notify("账号:空账户\t状态:跳过")
         else:
             notify(f"账号: {each['user']}\n状态: 取消登录\n原因: json数据不齐全")
+        notify('*' * 40 + '\n')
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('OPPO社区签到、早起打卡',allMess)
 
