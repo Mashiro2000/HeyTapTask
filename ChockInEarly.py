@@ -139,7 +139,6 @@ class CheckInEarly:
         if self.login() == True:
             self.early()
             notify(self.getIntegral())
-        notify('*' * 40 + '\n')
 
 # 检测CK是否存在必备参数
 def checkHT(dic):
@@ -178,6 +177,7 @@ def main_handler(event, context):
             notify("账号:空账户\t状态:跳过")
         else:
             notify(f"账号: {each['user']}\n状态: 取消登录\n原因: json数据不齐全")
+        notify('*' * 40 + '\n')
     if not os.path.basename(__file__).split('_')[-1][:-3] in notifyBlackList:
         send('欢太早睡打卡',allMess)
 
