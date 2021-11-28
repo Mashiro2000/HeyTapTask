@@ -1,5 +1,5 @@
 # <p align="center">HeyTapTask</p>
-<p align="center">早睡打卡，早起打卡需要验证，已下架脚本</P>
+<p align="center">早睡打卡，早起打卡需要验证，已下架脚本(期末了，更新随缘)</P>
 <p align="center">建议各位本地运行，由于本项目并不成熟，常变更拉库命令，请及时更新</P>
 <p align="center">喜欢这个项目？可以在右上角给颗⭐！你的支持是我最大的动力😎！</P>
 
